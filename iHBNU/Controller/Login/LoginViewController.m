@@ -94,6 +94,9 @@
                     NSLog(@"%@", [[NSUserDefaults standardUserDefaults] stringForKey:@"loginkey"]);
                     
                     [SVProgressHUD showSuccessWithStatus:@"登录成功" maskType:SVProgressHUDMaskTypeGradient];
+                    
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                    
                 } else if ([userModel.message isEqualToString:@"nothing"]) {
                     NSLog(@"帐号或密码错误");
                     [SVProgressHUD showErrorWithStatus:@"帐号或密码错误" maskType:SVProgressHUDMaskTypeGradient];

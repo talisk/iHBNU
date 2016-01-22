@@ -8,10 +8,15 @@
 
 #import "UserViewController.h"
 #import "OTCover.h"
+#import "User.h"
+#import "HMFileManager.h"
+
+#import "LoginViewController.h"
 
 @interface UserViewController ()<UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic)  OTCover *otcoverView;
+@property (strong, nonatomic) User *userModel;
 
 @end
 
@@ -20,13 +25,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self fakeKeyArraySet];
-    [self fakeValueArraySet];
+    self.userModel = [HMFileManager getObjectByFileName:@"userModel"];
+    
+    [self keyArraySet];
+    [self valueArraySet];
     
     [self otcoverSet];
     
     
     // Do any additional setup after loading the view from its nib.
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    NSLog(@"viewDidAppear");
+    
+    self.userModel = [HMFileManager getObjectByFileName:@"userModel"];
+    [self valueArraySet];
+    [self.otcoverView.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,12 +53,23 @@
 
 #pragma mark - Fake Data
 
-- (void)fakeKeyArraySet {
-    self.userDataSourceKeyArray = [NSArray arrayWithObjects:@"姓名", @"学号", @"学院", @"专业", @"班级", nil];
+- (void)keyArraySet {
+    self.userDataSourceKeyArray = [NSArray arrayWithObjects:@"姓名", @"性别", @"出生日期", @"学号", @"学院班级", @"电话", @"QQ", nil];
 }
 
-- (void)fakeValueArraySet {
-    self.userDataSourceValueArray = [NSArray arrayWithObjects:@"孙恺", @"2013115010148", @"计算机科学与技术学院", @"计算机科学与技术", @"1301", nil];
+- (void)valueArraySet {
+    User *temp = self.userModel;
+
+//    NSLog(@"%@",)
+    self.userDataSourceValueArray = [NSArray arrayWithObjects:
+                                     (temp.name.length?temp.name:@"无数据"),
+                                     (temp.sex.length?temp.sex:@"无数据"),
+                                     (temp.birthday.length?temp.birthday:@"无数据"),
+                                     (temp.userid.length?temp.userid:@"无数据"),
+                                     (temp.myclass.length?temp.myclass:@"无数据"),
+                                     (temp.tel.length?temp.tel:@"无数据"),
+                                     (temp.qq.length?temp.qq:@"无数据"),
+                                     nil];
 }
 
 #pragma mark - OTCover Set
@@ -61,12 +89,12 @@
 #pragma mark - TableView delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [UIScreen mainScreen].bounds.size.height/6.0f;
+    return 44.0f;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.userDataSourceKeyArray.count;
+    return self.userDataSourceKeyArray.count+1;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -75,17 +103,38 @@
     NSString *identifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:identifier];
     }
     
-    [cell.textLabel setText:self.userDataSourceKeyArray[indexPath.row]];
-    [cell.detailTextLabel setText:self.userDataSourceValueArray[indexPath.row]];
+    if (indexPath.row == self.userDataSourceValueArray.count) {
+        [cell.textLabel setText:@"注销帐号"];
+        [cell.textLabel setTextColor:[UIColor whiteColor]];
+        [cell setBackgroundColor:[UIColor redColor]];
+        [cell setUserInteractionEnabled:YES];
+        [cell setSelected:NO];
+    } else {
+        [cell.textLabel setText:self.userDataSourceKeyArray[indexPath.row]];
+        [cell.detailTextLabel setText:self.userDataSourceValueArray[indexPath.row]];
+        [cell setUserInteractionEnabled:NO];
+    }
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [[self.otcoverView.tableView cellForRowAtIndexPath:indexPath] setSelected:NO];
+    if (indexPath.row == self.userDataSourceKeyArray.count) {
+        [self logout];
+        
+        LoginViewController *loginViewController = [[LoginViewController alloc] init];
+        [self presentViewController:loginViewController animated:YES completion:nil];
+    }
+}
+
+- (void)logout {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"loginkey"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [HMFileManager removeAllFiles];
 }
 
 /*

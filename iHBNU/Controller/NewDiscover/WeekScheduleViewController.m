@@ -11,6 +11,10 @@
 #import "WeekScheduleViewController.h"
 #import "ZFModalTransitionAnimator.h"
 
+#import "User.h"
+#import "LoginViewController.h"
+#import "HMFileManager.h"
+
 @interface WeekScheduleViewController ()<JTCalendarDelegate,UITableViewDataSource,UITableViewDelegate>{
     NSMutableDictionary *_eventsByDate;
     
@@ -135,6 +139,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // 登录判断
+    NSString *loginKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"loginkey"];
+    User *userModel = [HMFileManager getObjectByFileName:@"userModel"];
+    
+    NSLog(@"%@",loginKey);
+    NSLog(@"%@",userModel);
+    
+    if (!loginKey.length || !userModel) {
+        LoginViewController *lvc = [[LoginViewController alloc] init];
+        [self presentViewController:lvc animated:YES completion:nil];
+    }
+    
+    
     
 //    JTCalendarMenuView *calendarTitleView = self.calendarMenuView;
 //    

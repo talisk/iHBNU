@@ -30,19 +30,13 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    NSString *loginKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"loginkey"];
-    User *userModel = [HMFileManager getObjectByFileName:@"userModel"];
-
-    NSLog(@"%@",loginKey);
-    NSLog(@"%@",userModel);
+    MainTabBarViewController *mainVC = [[MainTabBarViewController alloc] init];;
     
-    UIViewController *mainVC;
-    
-    if (loginKey.length && userModel) {
-        mainVC = [[MainTabBarViewController alloc] init];
-    } else {
-        mainVC = [[LoginViewController alloc] init];
-    }
+//    if (loginKey.length && userModel) {
+//        mainVC = [[MainTabBarViewController alloc] init];
+//    } else {
+//        mainVC = [[LoginViewController alloc] init];
+//    }
     
     self.window.rootViewController = mainVC;
 
