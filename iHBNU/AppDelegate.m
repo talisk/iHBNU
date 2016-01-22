@@ -14,10 +14,8 @@
 
 #import "MainTabBarViewController.h"
 
-#import "HomeViewController.h"
-#import "UserViewController.h"
-#import "DiscoverViewController.h"
-#import "MoreViewController.h"
+#import "HMFileManager.h"
+#import "User.h"
 
 @interface AppDelegate ()
 
@@ -32,29 +30,23 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    LoginViewController *lvc = [[LoginViewController alloc] init];
-    
-    MainTabBarViewController *tabBarController = [[MainTabBarViewController alloc] init];
-    
-//    HomeViewController *homeVC = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:[NSBundle mainBundle]];
-//    DiscoverViewController *discoverVC = [[DiscoverViewController alloc] initWithNibName:@"DiscoverViewController" bundle:[NSBundle mainBundle]];
-//    UserViewController *userVC = [[UserViewController alloc] initWithNibName:@"UserViewController" bundle:[NSBundle mainBundle]];
-//    MoreViewController *moreVC = [[MoreViewController alloc] initWithNibName:@"MoreViewController" bundle:[NSBundle mainBundle]];
-//    
-//    tabBarController.viewControllers = [NSArray arrayWithObjects:homeVC, discoverVC, userVC, moreVC, nil];
-    
-//    CustomTabbarController *tabbarVC = [[CustomTabbarController alloc] init];
-    
-//    NewEntryController *controller = [[NewEntryController alloc] initWithNibName:@"NewEntryController" bundle:nil];
-//    self.window.rootViewController = [[GKNavigationController alloc] initWithRootViewController:controller];
-    
-    self.window.rootViewController = lvc;
+    NSString *loginKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"loginkey"];
+    User *userModel = [HMFileManager getObjectByFileName:@"userModel"];
 
-//    self.window.rootViewController = lvc;
+    NSLog(@"%@",loginKey);
+    NSLog(@"%@",userModel);
     
+    UIViewController *mainVC;
+    
+    if (loginKey.length && userModel) {
+        mainVC = [[MainTabBarViewController alloc] init];
+    } else {
+        mainVC = [[LoginViewController alloc] init];
+    }
+    
+    self.window.rootViewController = mainVC;
+
     [self.window makeKeyAndVisible];
-
-    
     
     // Override point for customization after application launch.
     return YES;
