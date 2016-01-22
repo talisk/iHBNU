@@ -28,4 +28,6 @@
 @property (nonatomic, copy) NSString *bigbossId;
 @property (nonatomic, copy) NSString *bossId;
 
+@property (nonatomic, copy) NSString *message;
+
 @end

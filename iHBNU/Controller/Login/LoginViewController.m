@@ -63,7 +63,7 @@
         NSLog(@"%@,%@",self.userIDTextField.text,self.passwordTextField.text);
         
         NSArray *keyArray = @[@"username",@"password",@"choose"];
-//        NSArray *valueArray = @[@"2013115010148",@"1150001"];
+        // choose: 1teacher, 0student
         
         NSArray *valueArray = @[self.userIDTextField.text, self.passwordTextField.text, [NSString stringWithFormat:@"%li",self.segmentControl.selectedSegmentIndex]];
         
@@ -78,36 +78,46 @@
             
             if (mtlError) {
                 NSLog(@"%@",mtlError.description);
+                [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"发生错误:%@",userModel.message] maskType:SVProgressHUDMaskTypeGradient];
             } else {
-                [[NSUserDefaults standardUserDefaults] setValue:userModel.beizhu forKey:@"loginkey"];
-                [HMFileManager saveObject:userModel byFileName:@"userModel"];
-                if (self.segmentControl.selectedSegmentIndex) {
-                    // 教师帐号
-                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isTeacher"];
+                if (!userModel.message.length) {
+                    [[NSUserDefaults standardUserDefaults] setValue:userModel.beizhu forKey:@"loginkey"];
+                    [HMFileManager saveObject:userModel byFileName:@"userModel"];
+                    if (self.segmentControl.selectedSegmentIndex) {
+                        // 教师帐号
+                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isTeacher"];
+                    } else {
+                        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isTeacher"];
+                    }
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    
+                    NSLog(@"%@", [[NSUserDefaults standardUserDefaults] stringForKey:@"loginkey"]);
+                    
+                    [SVProgressHUD showSuccessWithStatus:@"登录成功" maskType:SVProgressHUDMaskTypeGradient];
+                } else if ([userModel.message isEqualToString:@"nothing"]) {
+                    NSLog(@"帐号或密码错误");
+                    [SVProgressHUD showErrorWithStatus:@"帐号或密码错误" maskType:SVProgressHUDMaskTypeGradient];
                 } else {
-                    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isTeacher"];
+                    NSLog(@"%@", userModel.message);
+                    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"发生错误:%@",userModel.message] maskType:SVProgressHUDMaskTypeGradient];
                 }
-                [[NSUserDefaults standardUserDefaults] synchronize];
-
-                NSLog(@"%@", [[NSUserDefaults standardUserDefaults] stringForKey:@"loginkey"]);
+                
             }
             
-            [SVProgressHUD dismiss];
+            
         } WithErrorCodeBlock:^(id errorCode) {
             NSLog(@"%@",errorCode);
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"发生错误:%@",errorCode] maskType:SVProgressHUDMaskTypeGradient];
         } WithFailureBlock:^{
             NSLog(@"网络异常");
             [SVProgressHUD showErrorWithStatus:@"网络异常" maskType:SVProgressHUDMaskTypeGradient];
-//            [SVProgressHUD dismiss];
-            
         }];
     } else {
-        [self passwordError];
+        [self emptyTextField];
     }
 }
 
-- (void)passwordError {
+- (void)emptyTextField {
     AFViewShaker *shaker = [[AFViewShaker alloc] initWithViewsArray:[NSArray arrayWithObjects:self.userIDTextField, self.passwordTextField, nil]];
     
     [DeviceToolbox vibrate];

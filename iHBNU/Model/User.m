@@ -25,7 +25,9 @@
              
              @"beizhu" : @"beizhu",
              @"bigbossId" : @"bigboosId",
-             @"bossId" : @"bossId"
+             @"bossId" : @"bossId",
+             
+             @"message" : @"message"
              };
 }
 
