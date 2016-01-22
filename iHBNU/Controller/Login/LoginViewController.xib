@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController">
+            <connections>
+                <outlet property="loginBTN" destination="fsg-sT-aqd" id="j0r-8j-3St"/>
+                <outlet property="passwordTextField" destination="NGm-7T-KoL" id="2F3-AE-e4W"/>
+                <outlet property="segmentControl" destination="Zei-b2-WAv" id="kfH-1b-CLE"/>
+                <outlet property="userIDTextField" destination="0Gv-hQ-Bwm" id="aGh-Ip-scR"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="学号 / 工号" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="0Gv-hQ-Bwm" customClass="ASTextField">
+                    <rect key="frame" x="26" y="94" width="548" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="36" id="eq8-dB-hri"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="next"/>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="NGm-7T-KoL" customClass="ASTextField">
+                    <rect key="frame" x="26" y="152" width="548" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="36" id="7rM-Sd-HJq"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" returnKeyType="go" secureTextEntry="YES"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fsg-sT-aqd">
+                    <rect key="frame" x="26" y="210" width="548" height="79"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="fsg-sT-aqd" secondAttribute="height" multiplier="250:36" id="cQU-5Y-irJ"/>
+                    </constraints>
+                    <state key="normal" title="登录"/>
+                    <connections>
+                        <action selector="pressBTN:" destination="-1" eventType="touchUpInside" id="kyr-Ov-ba1"/>
+                    </connections>
+                </button>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Zei-b2-WAv">
+                    <rect key="frame" x="26" y="44" width="548" height="29"/>
+                    <segments>
+                        <segment title="学生"/>
+                        <segment title="教师"/>
+                    </segments>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </segmentedControl>
+            </subviews>
+            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="0Gv-hQ-Bwm" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="34r-F0-jwG"/>
+                <constraint firstItem="NGm-7T-KoL" firstAttribute="top" secondItem="0Gv-hQ-Bwm" secondAttribute="bottom" constant="22" id="5P8-z4-EPY"/>
+                <constraint firstItem="fsg-sT-aqd" firstAttribute="top" secondItem="NGm-7T-KoL" secondAttribute="bottom" constant="22" id="ACH-Ak-vAz"/>
+                <constraint firstItem="fsg-sT-aqd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="26" id="DFa-8b-QYH"/>
+                <constraint firstItem="NGm-7T-KoL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="26" id="KPj-FM-uhf"/>
+                <constraint firstItem="Zei-b2-WAv" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="44" id="Pxj-bu-t7H"/>
+                <constraint firstAttribute="trailing" secondItem="0Gv-hQ-Bwm" secondAttribute="trailing" constant="26" id="S3c-DD-JVf"/>
+                <constraint firstAttribute="trailing" secondItem="NGm-7T-KoL" secondAttribute="trailing" constant="26" id="Tq1-Xl-UhP"/>
+                <constraint firstItem="0Gv-hQ-Bwm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="26" id="cNQ-BV-jHj"/>
+                <constraint firstItem="fsg-sT-aqd" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="fLe-bu-nq0"/>
+                <constraint firstItem="0Gv-hQ-Bwm" firstAttribute="top" secondItem="Zei-b2-WAv" secondAttribute="bottom" constant="22" id="nTR-x4-8g2"/>
+                <constraint firstItem="Zei-b2-WAv" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="26" id="oYz-NW-JW0"/>
+                <constraint firstAttribute="trailing" secondItem="fsg-sT-aqd" secondAttribute="trailing" constant="26" id="pbv-3V-4lb"/>
+                <constraint firstItem="NGm-7T-KoL" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="tuj-l1-XxU"/>
+                <constraint firstAttribute="trailing" secondItem="Zei-b2-WAv" secondAttribute="trailing" constant="26" id="zhh-kF-yg3"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

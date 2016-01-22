@@ -1,0 +1,8 @@
+platform:ios,'9.0'
+pod 'AFNetworking'
+pod 'Mantle'
+pod 'IQKeyboardManager'
+pod 'FXBlurView'
+pod 'SVProgressHUD'
+pod 'JTCalendar'
+pod 'ZFDragableModalTransition'
