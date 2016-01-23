@@ -24,6 +24,7 @@
 		B10851001BC8A6B800F1108B /* MyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B10850F81BC8A6B800F1108B /* MyLabel.m */; };
 		B10851011BC8A6B800F1108B /* TimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B10850FA1BC8A6B800F1108B /* TimeCell.m */; };
 		B10851021BC8A6B800F1108B /* TimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B10850FC1BC8A6B800F1108B /* TimeView.m */; };
+		B11C54261C53C0BA0034E575 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = B11C54251C53C0BA0034E575 /* Course.m */; };
 		B11D1F221BC7F40D002229EC /* header.png in Resources */ = {isa = PBXBuildFile; fileRef = B11D1F211BC7F40D002229EC /* header.png */; };
 		B11D1F241BC7F4AF002229EC /* header1.png in Resources */ = {isa = PBXBuildFile; fileRef = B11D1F231BC7F4AF002229EC /* header1.png */; };
 		B142E3681BE6131B00C9096C /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = B142E3671BE6131B00C9096C /* Request.m */; };
@@ -132,6 +133,8 @@
 		B10850FA1BC8A6B800F1108B /* TimeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeCell.m; sourceTree = "<group>"; };
 		B10850FB1BC8A6B800F1108B /* TimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeView.h; sourceTree = "<group>"; };
 		B10850FC1BC8A6B800F1108B /* TimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeView.m; sourceTree = "<group>"; };
+		B11C54241C53C0BA0034E575 /* Course.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Course.h; path = Model/Course.h; sourceTree = "<group>"; };
+		B11C54251C53C0BA0034E575 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Course.m; path = Model/Course.m; sourceTree = "<group>"; };
 		B11D1F211BC7F40D002229EC /* header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = header.png; sourceTree = "<group>"; };
 		B11D1F231BC7F4AF002229EC /* header1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = header1.png; sourceTree = "<group>"; };
 		B142E3661BE6131B00C9096C /* Request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Request.h; path = Request/Request.h; sourceTree = "<group>"; };
@@ -449,6 +452,8 @@
 			children = (
 				B1C88C351BC2BCA300FD7111 /* User.h */,
 				B1C88C361BC2BCA300FD7111 /* User.m */,
+				B11C54241C53C0BA0034E575 /* Course.h */,
+				B11C54251C53C0BA0034E575 /* Course.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -867,6 +872,7 @@
 				B10850FF1BC8A6B800F1108B /* MyCell.m in Sources */,
 				B1D12CDA1BEAF0B000B54A90 /* AbsenceViewController.m in Sources */,
 				B10850FD1BC8A6B800F1108B /* HeadView.m in Sources */,
+				B11C54261C53C0BA0034E575 /* Course.m in Sources */,
 				B1C88C881BC3B91800FD7111 /* MoreViewController.m in Sources */,
 				B1077C461BB8EB5300DC6870 /* main.m in Sources */,
 				B1C88C8E1BC3B94900FD7111 /* HomeViewController.m in Sources */,
