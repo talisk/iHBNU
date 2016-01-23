@@ -21,4 +21,6 @@
 @property (nonatomic, copy) NSString *year;
 @property (nonatomic, copy) NSString *semester;
 
+@property (nonatomic, copy) NSString *message;
+
 @end

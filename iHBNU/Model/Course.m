@@ -20,7 +20,9 @@
              @"courseSessionString" : @"sksj",
              @"selectionid" : @"xkkh",
              @"year" : @"xn",
-             @"semester" : @"xq"
+             @"semester" : @"xq",
+             
+             @"message" : @"message"
              };
 }
 
