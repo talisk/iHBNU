@@ -15,6 +15,8 @@
 #import "LoginViewController.h"
 #import "HMFileManager.h"
 
+#import "CourseManager.h"
+
 @interface WeekScheduleViewController ()<JTCalendarDelegate,UITableViewDataSource,UITableViewDelegate>{
     NSMutableDictionary *_eventsByDate;
     
@@ -139,6 +141,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    [[CourseManager sharedInstance] fetchCourse];
     
     // 登录判断
     NSString *loginKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"loginkey"];

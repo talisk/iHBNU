@@ -17,6 +17,8 @@
 #import "HMFileManager.h"
 #import "User.h"
 
+#import "CourseManager.h"
+
 @interface AppDelegate ()
 
 @end
@@ -31,12 +33,6 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     MainTabBarViewController *mainVC = [[MainTabBarViewController alloc] init];;
-    
-//    if (loginKey.length && userModel) {
-//        mainVC = [[MainTabBarViewController alloc] init];
-//    } else {
-//        mainVC = [[LoginViewController alloc] init];
-//    }
     
     self.window.rootViewController = mainVC;
 

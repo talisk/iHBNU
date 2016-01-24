@@ -8,7 +8,7 @@
 
 #import <Mantle/Mantle.h>
 
-@interface Course : MTLModel
+@interface Course : MTLModel<MTLJSONSerializing>
 
 @property (nonatomic, copy) NSString *beizhu;
 @property (nonatomic, copy) NSString *beizhu1;
