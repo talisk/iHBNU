@@ -10,22 +10,50 @@
 
 @implementation User
 
+///**
+// *  Public variable.
+// */
+//@property (nonatomic, copy) NSString *beizhu;
+//@property (nonatomic, copy) NSString *beizhu1;
+//
+//@property (nonatomic, copy) NSString *birthday;
+//@property (nonatomic, copy) NSString *userid;
+//@property (nonatomic, strong) NSNumber *collegeid;
+//@property (nonatomic, strong) NSNumber *majorid;
+//@property (nonatomic, copy) NSString *name;
+//@property (nonatomic, copy) NSString *sex;
+//@property (nonatomic, copy) NSString *tel;
+//@property (nonatomic, copy) NSString *qq;
+//@property (nonatomic, strong) NSNumber *schoolid;
+//@property (nonatomic, strong) NSNumber *permissionId;
+//
+///**
+// *  student variable.
+// */
+//@property (nonatomic, copy) NSString *bigbossId;
+//@property (nonatomic, copy) NSString *bossId;
+//@property (nonatomic, copy) NSString *myclass;
+//
+//@property (nonatomic, copy) NSString *message;
+
 +(NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{@"userid" : @"id",
-             @"majorid" : @"majorId",
-             @"myclass" : @"myclass",
+    return @{@"beizhu" : @"beizhu",
+             @"beizhu1" : @"beizhu1",
              
+             @"birthday" : @"birthday",
+             @"userid" : @"id",
+             @"collegeid" : @"collegeId",
+             @"majorid" : @"majorId",
+             @"schoolid" : @"schoolId",
+             @"permissionid" : @"permissionsId",
              @"name" : @"name",
              @"sex" : @"sex",
-             @"birthday" : @"birthday",
-             @"qq" : @"qq",
-             @"schoolid" : @"schoolId",
-             @"permissionId" : @"permissionsId",
              @"tel" : @"tel",
+             @"qq" : @"qq",
              
-             @"beizhu" : @"beizhu",
              @"bigbossId" : @"bigboosId",
              @"bossId" : @"bossId",
+             @"myclass" : @"myclass",
              
              @"message" : @"message"
              };
