@@ -26,6 +26,8 @@
 		B10851021BC8A6B800F1108B /* TimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B10850FC1BC8A6B800F1108B /* TimeView.m */; };
 		B11C54261C53C0BA0034E575 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = B11C54251C53C0BA0034E575 /* Course.m */; };
 		B11C54291C53C3330034E575 /* CourseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B11C54281C53C3330034E575 /* CourseManager.m */; };
+		B11C54501C55D2EF0034E575 /* CoursePackage.m in Sources */ = {isa = PBXBuildFile; fileRef = B11C544F1C55D2EF0034E575 /* CoursePackage.m */; };
+		B11C54531C5654480034E575 /* CourseTime.m in Sources */ = {isa = PBXBuildFile; fileRef = B11C54521C5654480034E575 /* CourseTime.m */; };
 		B11D1F221BC7F40D002229EC /* header.png in Resources */ = {isa = PBXBuildFile; fileRef = B11D1F211BC7F40D002229EC /* header.png */; };
 		B11D1F241BC7F4AF002229EC /* header1.png in Resources */ = {isa = PBXBuildFile; fileRef = B11D1F231BC7F4AF002229EC /* header1.png */; };
 		B142E3681BE6131B00C9096C /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = B142E3671BE6131B00C9096C /* Request.m */; };
@@ -138,6 +140,10 @@
 		B11C54251C53C0BA0034E575 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Course.m; path = Model/Course.m; sourceTree = "<group>"; };
 		B11C54271C53C3330034E575 /* CourseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CourseManager.h; path = Model/CourseManager.h; sourceTree = "<group>"; };
 		B11C54281C53C3330034E575 /* CourseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CourseManager.m; path = Model/CourseManager.m; sourceTree = "<group>"; };
+		B11C544E1C55D2EF0034E575 /* CoursePackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoursePackage.h; path = Model/CoursePackage.h; sourceTree = "<group>"; };
+		B11C544F1C55D2EF0034E575 /* CoursePackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoursePackage.m; path = Model/CoursePackage.m; sourceTree = "<group>"; };
+		B11C54511C5654480034E575 /* CourseTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CourseTime.h; path = Model/CourseTime.h; sourceTree = "<group>"; };
+		B11C54521C5654480034E575 /* CourseTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CourseTime.m; path = Model/CourseTime.m; sourceTree = "<group>"; };
 		B11D1F211BC7F40D002229EC /* header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = header.png; sourceTree = "<group>"; };
 		B11D1F231BC7F4AF002229EC /* header1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = header1.png; sourceTree = "<group>"; };
 		B142E3661BE6131B00C9096C /* Request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Request.h; path = Request/Request.h; sourceTree = "<group>"; };
@@ -450,6 +456,10 @@
 				B11C54251C53C0BA0034E575 /* Course.m */,
 				B11C54271C53C3330034E575 /* CourseManager.h */,
 				B11C54281C53C3330034E575 /* CourseManager.m */,
+				B11C544E1C55D2EF0034E575 /* CoursePackage.h */,
+				B11C544F1C55D2EF0034E575 /* CoursePackage.m */,
+				B11C54511C5654480034E575 /* CourseTime.h */,
+				B11C54521C5654480034E575 /* CourseTime.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -856,6 +866,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B10851001BC8A6B800F1108B /* MyLabel.m in Sources */,
+				B11C54531C5654480034E575 /* CourseTime.m in Sources */,
 				B1994CE41C524AA700B7802B /* HMFileManager.m in Sources */,
 				B1C88C721BC3B7F700FD7111 /* LoginViewController.m in Sources */,
 				B1C88C371BC2BCA300FD7111 /* User.m in Sources */,
@@ -865,6 +876,7 @@
 				B1994CE91C524ABA00B7802B /* DeviceToolbox.m in Sources */,
 				B14AF8701BEA1F3F00EAD217 /* WeekScheduleViewController.m in Sources */,
 				B1077C491BB8EB5300DC6870 /* AppDelegate.m in Sources */,
+				B11C54501C55D2EF0034E575 /* CoursePackage.m in Sources */,
 				B11C54291C53C3330034E575 /* CourseManager.m in Sources */,
 				B10851021BC8A6B800F1108B /* TimeView.m in Sources */,
 				B1C88C821BC3B8C500FD7111 /* DiscoverViewController.m in Sources */,
