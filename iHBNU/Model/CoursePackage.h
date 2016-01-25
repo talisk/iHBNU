@@ -30,7 +30,7 @@
  *  Teacher's variable.
  */
 @property (nonatomic, copy) NSString *teacherid;    // 教师ID
-@property (nonatomic, copy) NSString *property;     // 课程属性
+@property (nonatomic, copy) NSString *courseProperty;     // 课程属性
 @property (nonatomic, copy) NSString *academy;      // 开课学院
 @property (nonatomic, copy) NSString *courseCode;     // 课程属性
 @property (nonatomic, strong) NSNumber *studentCount; // 学生数
