@@ -31,16 +31,27 @@
         NSArray *keyArray = @[@"username",@"beizhu",@"choose"];
         // choose: 1teacher, 0student
         
-        NSArray *valueArray = @[self.userModel.userid, self.userModel.beizhu, @"0"];
+        NSArray *valueArray = @[self.userModel.userid, self.userModel.beizhu, [[NSUserDefaults standardUserDefaults] boolForKey:@"isTeacher"]?@"1":@"0"];
         
         NSString *urlString = @"http://115.29.40.230:8080/olschool/UserClass";
         NSDictionary *dic = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
         
         [Request requestGETWithRequestURL:urlString WithParameter:dic WithReturnValeuBlock:^(id returnValue) {
             
-            if ([(NSArray *)returnValue count] == 1 || [(NSArray *)returnValue count] == 0) {
+            NSLog(@"%@",returnValue);
+            
+            if ([(NSArray *)returnValue count] == 0) {
                 NSLog(@"无数据");
                 [SVProgressHUD showErrorWithStatus:@"未查询到数据" maskType:SVProgressHUDMaskTypeGradient];
+            } else if ([(NSArray *)returnValue count] == 1) {
+                if ([returnValue[@"message"] isEqualToString:@"empty"]) {
+                    NSLog(@"无数据");
+                    [SVProgressHUD showErrorWithStatus:@"未查询到数据" maskType:SVProgressHUDMaskTypeGradient];
+                } else {
+                    // todo: 令牌过期
+                    NSLog(@"无数据");
+                    [SVProgressHUD showErrorWithStatus:@"未查询到数据" maskType:SVProgressHUDMaskTypeGradient];
+                }
             } else if ([(NSArray *)returnValue count]) {
             
                 NSError *mtlError;
@@ -55,13 +66,13 @@
                         NSLog(@"%@",mtlError.description);
                     } else {
                         [courseArray addObject:courseModel];
-                        NSLog(@"Add new model: %@",courseModel);
+//                        NSLog(@"Add new model: %@",courseModel);
                     }
                 }
                 
                 [HMFileManager saveObject:courseArray byFileName:@"courseModel"];
                 NSLog(@"保存成功");
-                NSLog(@"%@",courseArray);
+//                NSLog(@"%@",courseArray);
             }
             
         } WithErrorCodeBlock:^(id errorCode) {
