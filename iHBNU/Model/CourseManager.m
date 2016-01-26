@@ -15,6 +15,8 @@
 #import "User.h"
 #import "HMFileManager.h"
 
+#import "CoursePackage.h"
+
 @interface CourseManager ()
 
 @property (nonatomic, strong) User *userModel;
@@ -38,7 +40,7 @@
         
         [Request requestGETWithRequestURL:urlString WithParameter:dic WithReturnValeuBlock:^(id returnValue) {
             
-            NSLog(@"%@",returnValue);
+//            NSLog(@"%@",returnValue);
             
             if ([(NSArray *)returnValue count] == 0) {
                 NSLog(@"无数据");
@@ -72,7 +74,147 @@
                 
                 [HMFileManager saveObject:courseArray byFileName:@"courseModel"];
                 NSLog(@"保存成功");
-//                NSLog(@"%@",courseArray);
+                
+                
+                NSMutableArray<CoursePackage *> *coursePackageArray = [NSMutableArray array];
+                
+                for (Course *course in courseArray) {
+                    
+                    CoursePackage *coursePackage = [[CoursePackage alloc] init];
+                    
+                    /**
+                     *  Public variable
+                     */
+                    if (course.courseid) {
+                        coursePackage.courseid = course.courseid;
+                    }
+                    if (course.courseName) {
+                        coursePackage.courseName = course.courseName;
+                    }
+                    if (course.semester) {
+                        [course.semester isEqualToString:@"1\r"]?(coursePackage.semester = @"1"):(coursePackage.semester = @"2");
+                    }
+                    if (course.year) {
+                        coursePackage.year = course.year;
+                    }
+                    
+                    if (course.classroom) {
+                        coursePackage.classroom = [course.classroom componentsSeparatedByString:@";"];
+                    }
+                    if (course.courseTimes) {
+                        NSArray *timeSubstrings = [course.courseTimes componentsSeparatedByString:@";"];
+                        for (NSString *timeSubstring in timeSubstrings) {
+                            CourseTime *courseTime = [[CourseTime alloc] init];
+                            NSError *error = NULL;
+                            /**
+                             *  timeSubstring Example
+                             *  周三第7,8节{第15-15周|单周}
+                             *  周二第9,10节{第5-13周}
+                             */
+                            
+                            // 节做分割切成两个字符串
+                            NSArray *jieSubstring = [timeSubstring componentsSeparatedByString:@"节"];
+                            
+                            // Weekday Array.
+                            NSArray *chineseWeekdays = @[@"一", @"二", @"三", @"四", @"五", @"六", @"日"];
+                            NSRegularExpression *weekdayRegEx = [NSRegularExpression
+                                                                 regularExpressionWithPattern:@"周.第"
+                                                                 options:NSRegularExpressionCaseInsensitive
+                                                                 error:&error];
+                            if (!error) {
+                                NSTextCheckingResult *weekResult = [weekdayRegEx firstMatchInString:jieSubstring[0]
+                                                                                        options:0
+                                                                                          range:NSMakeRange(0, [jieSubstring[0] length])];
+                                if (weekResult) {
+                                    NSString *chineseWeekdayResult = [timeSubstring substringWithRange:NSMakeRange(weekResult.range.location+1, 1)];
+                                    
+                                    for (int i=0; i<7; ++i) {
+                                        if ([chineseWeekdays[i] isEqualToString:chineseWeekdayResult]) {
+                                            courseTime.weekday = [NSNumber numberWithInt:i+1];
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            // Lesson Array.
+                            if ([jieSubstring[0] rangeOfString:@","].location != NSNotFound) {
+                                NSArray *lessonStrs = [jieSubstring[0] componentsSeparatedByString:@","];
+                                NSString *firstLessonStr = [lessonStrs[0] substringFromIndex:3];
+                                NSString *secondLessonStr = lessonStrs[1];
+//                                NSLog(@"%@ | %@", firstLessonStr, secondLessonStr);
+                                courseTime.sequence = @[[NSNumber numberWithInteger:firstLessonStr.integerValue], [NSNumber numberWithInteger:secondLessonStr.integerValue]];
+                            } else {
+                                courseTime.sequence = @[[NSNumber numberWithInteger:[jieSubstring[0] substringFromIndex:3].integerValue]];
+                            }
+                            
+                            // 单双周|分割
+                            if ([jieSubstring[1] rangeOfString:@"|"].location != NSNotFound) {
+                                NSArray *parityStrs = [jieSubstring[1] componentsSeparatedByString:@"|"];
+                                
+                                // 单双周
+                                if ([[parityStrs[1] substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"单"]) {
+                                    courseTime.oddWeek = YES;
+                                    courseTime.evenWeek = NO;
+                                } else {
+                                    courseTime.oddWeek = NO;
+                                    courseTime.evenWeek = YES;
+                                }
+                                
+                                NSArray *dashStrs = [jieSubstring[1] componentsSeparatedByString:@"-"];
+                                courseTime.startWeek = [NSNumber numberWithInteger:[dashStrs[0] substringFromIndex:2].integerValue];
+                                courseTime.endWeek = [NSNumber numberWithInteger:[dashStrs[1] substringWithRange:NSMakeRange(0, [dashStrs[1] length]-1)].integerValue];
+                            } else {
+                                // 单双周均有
+                                courseTime.oddWeek = YES;
+                                courseTime.evenWeek = YES;
+                                
+                                NSArray *dashStrs = [jieSubstring[1] componentsSeparatedByString:@"-"];
+                                courseTime.startWeek = [NSNumber numberWithInteger:[dashStrs[0] substringFromIndex:2].integerValue];
+                                courseTime.endWeek = [NSNumber numberWithInteger:[dashStrs[1] substringWithRange:NSMakeRange(0, [dashStrs[1] length]-2)].integerValue];
+                            }
+                            
+                            [coursePackage.courseTimes addObject:courseTime];
+//                            NSLog(@"%@",coursePackage.courseTimes[0]);
+                        }
+                    }
+
+                    /**
+                     *  Student's variable
+                     */
+                    if (course.studentid) {
+                        coursePackage.studentid = course.studentid;
+                    }
+                    
+                    /**
+                     *  Teacher's variable
+                     */
+                    if (course.teacherid) {
+                        coursePackage.teacherid = course.teacherid;
+                    }
+                    if (course.courseProperty) {
+                        coursePackage.courseProperty = course.courseProperty;
+                    }
+                    if (course.academy) {
+                        coursePackage.academy = course.academy;
+                    }
+                    if (course.courseCode) {
+                        coursePackage.courseCode = course.courseCode;
+                    }
+                    if (course.studentCount) {
+                        coursePackage.studentCount = [NSNumber numberWithInteger:course.studentCount.integerValue];
+                    }
+                    if (course.classes) {
+                        coursePackage.classes = [course.classes componentsSeparatedByString:@";"];
+                    }
+                    
+                    [coursePackageArray addObject:coursePackage];
+                    
+                }
+                
+//                NSLog(@"%@", coursePackageArray.description);
+                [HMFileManager saveObject:coursePackageArray byFileName:@"coursePackage"];
+                
             }
             
         } WithErrorCodeBlock:^(id errorCode) {
