@@ -19,7 +19,7 @@
 @property (nonatomic, copy) NSString *year;         // 学年
 @property (nonatomic, copy) NSString *semester;     // 学期
 @property (nonatomic, strong) NSArray<NSString *> *classroom;       // 教室名数组
-@property (nonatomic, strong) NSArray<CourseTime *> *courseTimes;   // 上课时间数组
+@property (nonatomic, strong) NSMutableArray<CourseTime *> *courseTimes;   // 上课时间数组
 
 /**
  *  Student's variable.

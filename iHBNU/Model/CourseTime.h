@@ -15,7 +15,7 @@
 @property (nonatomic, strong) NSNumber *startWeek; // 开始周 1,2,3,4,5,6,7...
 @property (nonatomic, strong) NSNumber *endWeek; // 结束周 1,2,3,4,5,6,7...
 
-@property BOOL oddWeek;
-@property BOOL evenWeek;
+@property BOOL oddWeek; // 单周
+@property BOOL evenWeek;// 双周
 
 @end
