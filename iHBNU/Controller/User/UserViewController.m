@@ -43,6 +43,7 @@
     
     self.userModel = [HMFileManager getObjectByFileName:@"userModel"];
     [self valueArraySet];
+    [self otcoverImageSet];
     [self.otcoverView.tableView reloadData];
 }
 
@@ -74,8 +75,34 @@
 
 #pragma mark - OTCover Set
 
+- (NSString *)otcoverHeaderViewImageName {
+    NSString *imageName = [NSString string];
+    if ([self.userModel.sex isEqualToString:@"男"]) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isTeacher"]) {
+            imageName = @"teacher_male";
+        } else {
+            imageName = @"student_boy";
+        }
+    } else {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isTeacher"]) {
+            imageName = @"teacher_female";
+        } else {
+            imageName = @"student_girl";
+        }
+    }
+    return imageName;
+}
+
+- (void)otcoverImageSet {
+    [self.otcoverView setHeaderImage:[UIImage imageNamed:[self otcoverHeaderViewImageName]]];
+}
+
 - (void)otcoverSet {
-    self.otcoverView = [[OTCover alloc] initWithTableViewWithHeaderImage:[UIImage imageNamed:@"header2.png"] withOTCoverHeight:[UIScreen mainScreen].bounds.size.width];
+    
+    self.otcoverView = [[OTCover alloc]
+                        initWithTableViewWithHeaderImage:[UIImage
+                                                          imageNamed:[self otcoverHeaderViewImageName]?[self otcoverHeaderViewImageName]:@"header1"]
+                        withOTCoverHeight:[UIScreen mainScreen].bounds.size.width];
     
     self.otcoverView.tableView.contentInset = UIEdgeInsetsMake(self.navigationController.navigationBar.frame.size.height, 0, self.tabBarController.tabBar.frame.size.height, 0);
     self.otcoverView.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(self.navigationController.navigationBar.frame.size.height, 0, self.tabBarController.tabBar.frame.size.height, 0);
