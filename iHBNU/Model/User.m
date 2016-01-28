@@ -59,4 +59,17 @@
              };
 }
 
++ (NSValueTransformer *)majoridJSONTransformer {
+    return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{@"": @0}];
+}
++ (NSValueTransformer *)collegeidJSONTransformer {
+    return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{@"": @0}];
+}
++ (NSValueTransformer *)schoolidJSONTransformer {
+    return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{@"": @0}];
+}
++ (NSValueTransformer *)permissionidJSONTransformer {
+    return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{@"": @0}];
+}
+
 @end
