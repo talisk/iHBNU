@@ -7,9 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Course.h"
+
+@class Course, CoursePackage;
+
+@protocol CourseManagerDelegate <NSObject>
+
+@optional
+- (void)didFetchCoursesData:(NSArray<Course *> *)courses;
+- (void)didGetCoursePackages:(NSArray<CoursePackage *> *)coursePackages;
+
+@end
 
 @interface CourseManager : NSObject
+
+@property (nonatomic, weak) id<CourseManagerDelegate> delegate;
 
 + (instancetype)sharedInstance;
 - (Course *)fetchCourse;

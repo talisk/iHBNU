@@ -15,6 +15,7 @@
 #import "User.h"
 #import "HMFileManager.h"
 
+#import "Course.h"
 #import "CoursePackage.h"
 
 @interface CourseManager ()
@@ -75,6 +76,7 @@
                 [HMFileManager saveObject:courseArray byFileName:@"courseModel"];
                 NSLog(@"保存成功");
                 
+                [self.delegate didFetchCoursesData:[NSArray arrayWithArray:courseArray]];
                 
                 NSMutableArray<CoursePackage *> *coursePackageArray = [NSMutableArray array];
                 
@@ -214,6 +216,7 @@
                 
 //                NSLog(@"%@", coursePackageArray.description);
                 [HMFileManager saveObject:coursePackageArray byFileName:@"coursePackage"];
+                [self.delegate didGetCoursePackages:[NSArray arrayWithArray:coursePackageArray]];
                 
             }
             
