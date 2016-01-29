@@ -1,6 +1,7 @@
 platform:ios,'8.0'
 
 target "iHBNU" do
+
 pod 'AFNetworking'
 pod 'Mantle'
 pod 'IQKeyboardManager'
@@ -8,5 +9,8 @@ pod 'FXBlurView'
 pod 'SVProgressHUD'
 pod 'JTCalendar'
 pod 'ZFDragableModalTransition'
-pod 'MJExtension'
+pod 'AFDateHelper'
+
+use_frameworks!
+
 end
