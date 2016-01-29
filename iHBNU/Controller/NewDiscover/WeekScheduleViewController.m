@@ -5,9 +5,12 @@
 //  Created by 孙恺 on 15/11/4.
 //  Copyright © 2015年 sunkai. All rights reserved.
 //
+
+@import AFDateHelper;
+
 #import "AbsenceViewController.h"
 #import "DailyTableViewCell.h"
-#import "JTCalendar.h"
+#import <JTCalendar/JTCalendar.h>
 #import "WeekScheduleViewController.h"
 #import "ZFModalTransitionAnimator.h"
 
@@ -16,8 +19,10 @@
 #import "HMFileManager.h"
 
 #import "CourseManager.h"
+#import "CourseTime.h"
+#import "CoursePackage.h"
 
-@interface WeekScheduleViewController ()<JTCalendarDelegate,UITableViewDataSource,UITableViewDelegate>{
+@interface WeekScheduleViewController ()<JTCalendarDelegate,UITableViewDataSource,UITableViewDelegate, CourseManagerDelegate>{
     NSMutableDictionary *_eventsByDate;
     
     NSDate *_todayDate;
@@ -51,7 +56,38 @@
 
 @implementation WeekScheduleViewController
 
-#pragma TableView
+#pragma mark - CourseManagerDelegate
+
+- (void)didGetCoursePackages:(NSArray<CoursePackage *> *)coursePackages {
+    // todo: refresh ui
+    
+    NSMutableArray *array = [NSMutableArray arrayWithArray:@[[NSMutableArray array],
+                                                             [NSMutableArray array],
+                                                             [NSMutableArray array],
+                                                             [NSMutableArray array],
+                                                             [NSMutableArray array],
+                                                             [NSMutableArray array],
+                                                             [NSMutableArray array],
+                                                             
+                                                             [NSMutableArray array],
+                                                             [NSMutableArray array],
+                                                             [NSMutableArray array],
+                                                             [NSMutableArray array],
+                                                             [NSMutableArray array],
+                                                             [NSMutableArray array],
+                                                             [NSMutableArray array],
+                                                             ]];
+    
+//    NSInteger
+//    
+    for (CoursePackage *course in coursePackages) {
+        for (CourseTime *courseTime in course.courseTimes) {
+            
+        }
+    }
+}
+
+#pragma mark - TableView
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 //    return self.dailyDataArray.count;
@@ -60,29 +96,14 @@
 
 
 - (DailyTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    DailyTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    if (!cell)
-    {
-        [tableView registerNib:[UINib nibWithNibName:@"DailyTableViewCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
-        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    static NSString *CellIdentifier = @"DailyTableViewCell";
+    
+    DailyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) {
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"DailyTableViewCell" owner:self options:nil] lastObject];
     }
-    
     [cell setCourseName:@"软件工程 - 童强" locateName:@"科教大厦9102" timeText:@"08:00-09:35"];
-    
     return cell;
-    
-    
-    
-//    static NSString *CellIdentifier = @"Cell";
-//    BOOL nibsRegistered = NO;
-//    if (!nibsRegistered) {
-//        UINib *nib = [UINib nibWithNibName:NSStringFromClass([DailyTableViewCell class]) bundle:[NSBundle mainBundle]];
-//        [tableView registerNib:nib forCellReuseIdentifier:CellIdentifier];
-//        nibsRegistered = YES;
-//    }
-//    DailyTableViewCell *cell = (DailyTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//    [cell setCourseName:@"软件工程 - 童强" locateName:@"科教大厦9102" timeText:@"08:00-09:35"];
-//    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -93,6 +114,8 @@
     [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO];
     [self presentAskForLeaveViewController];
 }
+
+#pragma mark - Modal View
 
 - (void)presentAskForLeaveViewController {
     AbsenceViewController *absenceVC = [[AbsenceViewController alloc] initWithNibName:@"AbsenceViewController" bundle:[NSBundle mainBundle]];
@@ -111,6 +134,8 @@
     [absenceVC setTitle:@"请假"];
     [self presentViewController:absenceVC animated:YES completion:nil];
 }
+
+
 
 #pragma mark - Utils
 
@@ -331,7 +356,6 @@
 
 - (void)calendar:(JTCalendarManager *)calendar didTouchDayView:(JTCalendarDayView *)dayView
 {
-    NSLog(@"1");
     if (self.mutipleSelect) {
         
         NSLog(@"mutipleSelect");
@@ -362,10 +386,10 @@
         }
         
         if (_datesSelected.count!=0) {
-            NSLog(@"array.count:%i",_datesSelected.count);
+            NSLog(@"array.count:%lu",(unsigned long)_datesSelected.count);
             [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:self.selectMutipleDayButtonItem, self.askForLeaveButtonItem, nil] animated:YES];
         } else {
-            NSLog(@"array.count:%i",_datesSelected.count);
+            NSLog(@"array.count:%lu",(unsigned long)_datesSelected.count);
             [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:self.selectMutipleDayButtonItem, nil] animated:YES];
         }
         
@@ -437,7 +461,7 @@
 - (void)createMinAndMaxDate
 {
     _todayDate = [NSDate date];
-    
+        
     // Min date will be 2 month before today
     _minDate = [_calendarManager.dateHelper addToDate:_todayDate months:-2];
     
@@ -451,7 +475,7 @@
     static NSDateFormatter *dateFormatter;
     if(!dateFormatter){
         dateFormatter = [NSDateFormatter new];
-        dateFormatter.dateFormat = @"dd-MM-yyyy";
+        dateFormatter.dateFormat = @"yyyy-MM-dd";
     }
     
     return dateFormatter;
