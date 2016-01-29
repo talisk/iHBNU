@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0883F6A0733D1EA5A0ED460B /* libPods-iHBNU.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF907F9EBD60D0F56CB7605E /* libPods-iHBNU.a */; };
 		B1077C461BB8EB5300DC6870 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B1077C451BB8EB5300DC6870 /* main.m */; };
 		B1077C491BB8EB5300DC6870 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B1077C481BB8EB5300DC6870 /* AppDelegate.m */; };
 		B1077C511BB8EB5300DC6870 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1077C501BB8EB5300DC6870 /* Assets.xcassets */; };
@@ -83,6 +82,7 @@
 		B1C88CA21BC3BC3800FD7111 /* wd13@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B1C88C991BC3BC3800FD7111 /* wd13@2x.png */; };
 		B1D12CDA1BEAF0B000B54A90 /* AbsenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1D12CD81BEAF0B000B54A90 /* AbsenceViewController.m */; };
 		B1D12CDB1BEAF0B000B54A90 /* AbsenceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1D12CD91BEAF0B000B54A90 /* AbsenceViewController.xib */; };
+		BD9E3D41A256140A759A1091 /* Pods_iHBNU.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DDA2B60693B6B0BE93675F /* Pods_iHBNU.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +105,7 @@
 /* Begin PBXFileReference section */
 		A1EE5AEC8B92EEB0DF2DF73D /* Pods-iHBNU.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iHBNU.release.xcconfig"; path = "Pods/Target Support Files/Pods-iHBNU/Pods-iHBNU.release.xcconfig"; sourceTree = "<group>"; };
 		A562D3D567E864ACD7E4C160 /* Pods-iHBNU.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iHBNU.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iHBNU/Pods-iHBNU.debug.xcconfig"; sourceTree = "<group>"; };
+		B0DDA2B60693B6B0BE93675F /* Pods_iHBNU.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iHBNU.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1077C411BB8EB5300DC6870 /* iHBNU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iHBNU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1077C451BB8EB5300DC6870 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B1077C471BB8EB5300DC6870 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -216,7 +217,6 @@
 		B1D12CD71BEAF0B000B54A90 /* AbsenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbsenceViewController.h; sourceTree = "<group>"; };
 		B1D12CD81BEAF0B000B54A90 /* AbsenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbsenceViewController.m; sourceTree = "<group>"; };
 		B1D12CD91BEAF0B000B54A90 /* AbsenceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AbsenceViewController.xib; sourceTree = "<group>"; };
-		CF907F9EBD60D0F56CB7605E /* libPods-iHBNU.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iHBNU.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,7 +225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B144F92F1C059D3A00A5A836 /* CoreFoundation.framework in Frameworks */,
-				0883F6A0733D1EA5A0ED460B /* libPods-iHBNU.a in Frameworks */,
+				BD9E3D41A256140A759A1091 /* Pods_iHBNU.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,7 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				B144F92E1C059D3A00A5A836 /* CoreFoundation.framework */,
-				CF907F9EBD60D0F56CB7605E /* libPods-iHBNU.a */,
+				B0DDA2B60693B6B0BE93675F /* Pods_iHBNU.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -961,6 +961,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1004,6 +1005,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1028,9 +1030,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
 				GCC_PREFIX_HEADER = iHBNU/PrefixHeader.pch;
 				INFOPLIST_FILE = iHBNU/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kai-Sun.iHBNU";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1045,9 +1049,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
 				GCC_PREFIX_HEADER = iHBNU/PrefixHeader.pch;
 				INFOPLIST_FILE = iHBNU/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kai-Sun.iHBNU";
 				PRODUCT_NAME = "$(TARGET_NAME)";
