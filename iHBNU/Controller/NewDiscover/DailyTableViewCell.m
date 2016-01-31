@@ -18,9 +18,9 @@
 @implementation DailyTableViewCell
 
 - (void)setCourseName:(NSString *)course locateName:(NSString *)locate timeText:(NSString *)timeText {
-//    [self.courseNameLabel setText:course];
-//    [self.locateLabel setText:locate];
-//    [self.timeLabel setText:timeText];
+    [self.courseNameLabel setText:course];
+    [self.locateLabel setText:locate];
+    [self.timeLabel setText:timeText];
 }
 
 - (void)awakeFromNib {
