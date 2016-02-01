@@ -226,7 +226,7 @@
     self.animator = [[ZFModalTransitionAnimator alloc] initWithModalViewController:absenceVC];
     self.animator.dragable = YES;
     self.animator.bounces = NO;
-    self.animator.behindViewAlpha = 0.5f;
+    self.animator.behindViewAlpha = 1.0f;
     self.animator.behindViewScale = 0.8f;
     self.animator.transitionDuration = 0.7f;
     self.animator.direction = ZFModalTransitonDirectionBottom;
