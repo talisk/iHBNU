@@ -336,7 +336,7 @@
     [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:self.goTodaySwitcherButtonItem, self.weeklyModeSwitcherButtonItem, nil]];
     
     self.selectMutipleDayButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"多选" style:UIBarButtonItemStylePlain target:self action:@selector(didSwitchMutipleSelect)];
-    self.askForLeaveButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"请假" style:UIBarButtonItemStylePlain target:self action:@selector(didAskForLeave)];
+    self.askForLeaveButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"请假" style:UIBarButtonItemStylePlain target:self action:@selector(askForLeave)];
     
     [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:self.selectMutipleDayButtonItem, self.askForLeaveButtonItem, nil]];
 }
@@ -346,9 +346,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)didAskForLeave {
+#pragma mark - Ask for leave
+
+- (void)askForLeave {
     [self presentAskForLeaveViewController];
 }
+
+#pragma mark - Calendar Toolbar setting
 
 - (void)didSwitchMutipleSelect {
     self.mutipleSelect = !self.mutipleSelect;
