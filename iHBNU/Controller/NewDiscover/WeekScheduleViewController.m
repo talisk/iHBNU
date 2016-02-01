@@ -6,7 +6,7 @@
 //  Copyright © 2015年 sunkai. All rights reserved.
 //
 
-@import AFDateHelper;
+#import <DateTools/DateTools.h>
 
 #import "AbsenceViewController.h"
 #import "DailyTableViewCell.h"
@@ -17,6 +17,8 @@
 #import "User.h"
 #import "LoginViewController.h"
 #import "HMFileManager.h"
+
+#import "NSDate+SchoolWeek.h"
 
 #import "CourseManager.h"
 #import "CourseTime.h"
@@ -52,16 +54,23 @@
 @property (strong, nonatomic) UIBarButtonItem *selectMutipleDayButtonItem;
 @property (strong, nonatomic) UIBarButtonItem *weeklyModeSwitcherButtonItem;
 
+@property (strong, nonatomic) NSMutableArray *calendarDataArray;
+
 @end
 
 @implementation WeekScheduleViewController
 
 #pragma mark - CourseManagerDelegate
 
+- (void)didFetchCoursesData:(NSArray<Course *> *)courses {
+    
+}
+
 - (void)didGetCoursePackages:(NSArray<CoursePackage *> *)coursePackages {
     // todo: refresh ui
     
-    NSMutableArray *array = [NSMutableArray arrayWithArray:@[[NSMutableArray array],
+    self.calendarDataArray = [NSMutableArray arrayWithArray:@[
+                                                             [NSMutableArray array],
                                                              [NSMutableArray array],
                                                              [NSMutableArray array],
                                                              [NSMutableArray array],
@@ -78,20 +87,66 @@
                                                              [NSMutableArray array],
                                                              ]];
     
-//    NSInteger
-//    
     for (CoursePackage *course in coursePackages) {
-        for (CourseTime *courseTime in course.courseTimes) {
+        for (int i = 0; i < course.courseTimes.count; i++) {
+            CourseTime *courseTime = course.courseTimes[i];
             
+            NSDictionary *dic = @{@"courseName" : course.courseName,
+                                  @"courseid" : course.courseid,
+                                  @"year" : course.year,
+                                  @"semester" : course.semester,
+                                  @"classroom" : course.classroom[i],
+                                  @"sequence" : courseTime.sequence,
+                                  @"startweek" : courseTime.startWeek,
+                                  @"endweek" : courseTime.endWeek
+//                                  @"time" : courseTime
+                                  };
+            
+            if (courseTime.oddWeek && courseTime.evenWeek) {
+                // 单双周
+
+                [self.calendarDataArray[courseTime.weekday.integerValue-1] addObject:dic];
+                [self.calendarDataArray[courseTime.weekday.integerValue-1+7] addObject:dic];
+            
+            } else if (courseTime.oddWeek) {
+                [self.calendarDataArray[courseTime.weekday.integerValue-1] addObject:dic];
+                // 单周
+            } else if (courseTime.evenWeek) {
+                [self.calendarDataArray[courseTime.weekday.integerValue-1+7] addObject:dic];
+                // 双周
+            }
         }
     }
+    
+    [self createEvents];
+    
+//    NSLog(@"%@", self.calendarDataArray);
 }
 
 #pragma mark - TableView
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return self.dailyDataArray.count;
-    return 5;
+    NSInteger result=0;
+    if ([_dateSelected daysFrom:[NSDate semesterBeginning]]>=0) {
+        for (NSDictionary *dic in _dailyDataArray) { //[(_dateSelected.weekday==1)?0:_dateSelected.weekday-2]
+    //        NSLog(@"%@",dic);
+            if ([_dateSelected weeksFrom:[NSDate semesterBeginning]] >= ((NSNumber *)dic[@"startweek"]).integerValue-1 && [_dateSelected weeksFrom:[NSDate semesterBeginning]] <= ((NSNumber *)dic[@"endweek"]).integerValue-1) {
+                
+    //            NSLog(@"weeksfrom:%li",(long)[_dateSelected weeksFrom:[NSDate semesterBeginning]]);
+    //            NSLog(@"startweek:%li",(long)((NSNumber *)dic[@"startweek"]).integerValue);
+    //            NSLog(@"endweek:%li",(long)((NSNumber *)dic[@"endweek"]).integerValue);
+                
+                result++;
+            }
+        }
+    } else {
+        result = 0;
+    }
+//    return _dailyDataArray.count;
+    NSLog(@"%li",result);
+    return result;
+    
+
 }
 
 
@@ -102,7 +157,52 @@
     if (!cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"DailyTableViewCell" owner:self options:nil] lastObject];
     }
-    [cell setCourseName:@"软件工程 - 童强" locateName:@"科教大厦9102" timeText:@"08:00-09:35"];
+//    [cell setCourseName:@"软件工程 - 童强" locateName:@"科教大厦9102" timeText:@"08:00-09:35"];
+    
+    if ([_dateSelected isLaterThanOrEqualTo:[NSDate semesterBeginning]]) {
+        
+        NSInteger count = -1;
+        
+        for (NSDictionary *dic in _dailyDataArray) {
+            if (([_dateSelected weeksFrom:[NSDate semesterBeginning]]+1
+                 >=
+                 ((NSNumber *)dic[@"startweek"]).integerValue)
+                &&
+                ([_dateSelected weeksFrom:[NSDate semesterBeginning]]+1
+                 <=
+                 ((NSNumber *)dic[@"endweek"]).integerValue)
+                ) {
+                
+//                NSLog(@"%li",[_dateSelected weeksFrom:[NSDate semesterBeginning]]+1);
+//                NSLog(@"%li",((NSNumber *)dic[@"startweek"]).integerValue);
+//                NSLog(@"%li",((NSNumber *)dic[@"endweek"]).integerValue);
+                
+                count ++;
+//                NSLog(@"%i", count);
+                if (count == indexPath.row) {
+                    //                NSLog(@"%li",(long)count);
+                    NSMutableString *str = [NSMutableString string];
+                    for (NSNumber *number in dic[@"sequence"]) {
+                        [str appendString:number.stringValue];
+                    }
+                    NSLog(@"%@",dic);
+                    [cell setCourseName:dic[@"courseName"] locateName:dic[@"classroom"] timeText:[NSString stringWithFormat:@"第%@节课",str]];
+                    
+                    NSLog(@"%@",_dateSelected);
+                    return cell;
+                } else {
+                    continue;
+                }
+            } else {
+                [cell setCourseName:nil locateName:nil timeText:nil];
+            }
+        }
+    }
+    
+    
+    
+//    NSLog(@"%@",_dailyDataArray[indexPath.row]);
+    
     return cell;
 }
 
@@ -167,8 +267,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Create a min and max date for limit the calendar, optional
+    [self createMinAndMaxDate];
     
+    [CourseManager sharedInstance].delegate = self;
     [[CourseManager sharedInstance] fetchCourse];
+    
     
     // 登录判断
     NSString *loginKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"loginkey"];
@@ -191,12 +295,12 @@
     self.mutipleSelect = NO;
     _datesSelected = [[NSMutableArray alloc] init];
     
+    self.dailyDataArray = [[NSMutableArray alloc] init];
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, self.tabBarController.tabBar.frame.size.height, 0)];
     [self.tableView setScrollIndicatorInsets:UIEdgeInsetsMake(0, 0, self.tabBarController.tabBar.frame.size.height, 0)];
-    
-    self.dailyDataArray = [[NSMutableArray alloc] init];
     
     self.calendarManager = [[JTCalendarManager alloc] init];
     self.calendarManager.delegate = self;
@@ -208,12 +312,6 @@
 //    [self.navigationController.navigationBar addSubview:self.calendarMenuView];
 //    [self.navigationController.navigationItem setTitleView:self.calendarMenuView];
 //    [self.navigationItem setTitleView:self.calendarMenuView];
-    
-    // Generate random events sort by date using a dateformatter for the demonstration
-    [self createRandomEvents];
-    
-    // Create a min and max date for limit the calendar, optional
-    [self createMinAndMaxDate];
     
     [_calendarManager setMenuView:_calendarMenuView];
     [_calendarManager setContentView:_calendarContentView];
@@ -296,19 +394,8 @@
                      }];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 #pragma mark - CalendarManager delegate
 
-// Exemple of implementation of prepareDayView method
 // Used to customize the appearance of dayView
 - (void)calendar:(JTCalendarManager *)calendar prepareDayView:(JTCalendarDayView *)dayView
 {
@@ -394,6 +481,14 @@
         }
         
     } else {
+//        NSLog(@"%ld",(long)[dayView.date weeksFrom:[NSDate semesterBeginning]]);
+        if ([dayView.date weeksFrom:[NSDate semesterBeginning]] % 2 == 0) {
+            // 单周
+            _dailyDataArray = _calendarDataArray[(dayView.date.weekday==1)?0:dayView.date.weekday-2];
+        } else {
+            // 双周
+            _dailyDataArray = _calendarDataArray[dayView.date.weekday+5];
+        }
         
         _dateSelected = dayView.date;
         
@@ -405,11 +500,9 @@
                         animations:^{
                             dayView.circleView.transform = CGAffineTransformIdentity;
                             [_calendarManager reload];
+                            [self.tableView reloadData];
                         } completion:nil];
     }
-    
-    
-    
     
     // Load the previous or next page if touch a day from another month
     
@@ -456,17 +549,33 @@
     //    NSLog(@"Previous page loaded");
 }
 
-#pragma mark - Fake data
+#pragma mark - Calendar data
 
 - (void)createMinAndMaxDate
 {
     _todayDate = [NSDate date];
-        
-    // Min date will be 2 month before today
-    _minDate = [_calendarManager.dateHelper addToDate:_todayDate months:-2];
     
-    // Max date will be 2 month after today
-    _maxDate = [_calendarManager.dateHelper addToDate:_todayDate months:2];
+    
+    _minDate = [[NSDate semesterBeginning] dateBySubtractingMonths:1];
+    _maxDate = [NSDate semesterEnding];
+
+    // todo: date scope
+//    if (_todayDate.month>7) {
+//        
+//        _minDate = [NSDate dateWithYear:_todayDate.year month:7 day:1];
+//        _maxDate = [NSDate dateWithYear:_todayDate.year+1 month:3 day:1];
+//        
+//    } else if (_todayDate.month>1) {
+//        
+//        _minDate = [NSDate dateWithYear:_todayDate.year month:1 day:1];
+//        _maxDate = [NSDate dateWithYear:_todayDate.year month:1 day:1];
+//        
+//    } else {
+//        
+//        _minDate = [NSDate dateWithYear:_todayDate.year-1 month:7 day:1];
+//        _maxDate = [NSDate dateWithYear:_todayDate.year month:3 day:1];
+//    }
+    
 }
 
 // Used only to have a key for _eventsByDate
@@ -486,30 +595,48 @@
     NSString *key = [[self dateFormatter] stringFromDate:date];
     
     if(_eventsByDate[key] && [_eventsByDate[key] count] > 0){
-        return YES;
+        
+        for (NSDictionary *dic in _eventsByDate[key]) {
+            if ([date weeksFrom:[NSDate semesterBeginning]] >= ((NSNumber *)dic[@"startweek"]).integerValue-1 && [date weeksFrom:[NSDate semesterBeginning]] <= ((NSNumber *)dic[@"endweek"]).integerValue-1) {
+                return YES;
+            }
+        }
+
     }
     
     return NO;
     
 }
 
-- (void)createRandomEvents
+- (void)tableViewDataInitial {
+    _dailyDataArray = _eventsByDate[[[self dateFormatter] stringFromDate:[NSDate date]]];
+    [self.tableView reloadData];
+}
+
+- (void)createEvents
 {
+    // !!!: 学期长度
+    
     _eventsByDate = [NSMutableDictionary new];
     
-    for(int i = 0; i < 30; ++i){
+    for(int i = 0; i < [NSDate semesterDaysCount]; ++i){
         // Generate 30 random dates between now and 60 days later
-        NSDate *randomDate = [NSDate dateWithTimeInterval:(rand() % (3600 * 24 * 60)) sinceDate:[NSDate date]];
-        
+        NSDate *date = [NSDate dateWithTimeInterval:(i*3600*24) % (3600 * 24 * [NSDate semesterDaysCount]) sinceDate:[NSDate semesterBeginning]];
+
         // Use the date as key for eventsByDate
-        NSString *key = [[self dateFormatter] stringFromDate:randomDate];
+        NSString *key = [[self dateFormatter] stringFromDate:date];
+//        NSLog(@"%@",key);
         
         if(!_eventsByDate[key]){
-            _eventsByDate[key] = [NSMutableArray new];
+            NSUInteger day = i % 14;
+            
+            _eventsByDate[key] = [NSArray arrayWithArray:self.calendarDataArray[day]];
         }
         
-        [_eventsByDate[key] addObject:randomDate];
     }
+    
+    [self.calendarManager reload];
+    [self tableViewDataInitial];
 }
 
 @end
