@@ -82,6 +82,7 @@
 		B1C88CA21BC3BC3800FD7111 /* wd13@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B1C88C991BC3BC3800FD7111 /* wd13@2x.png */; };
 		B1D12CDA1BEAF0B000B54A90 /* AbsenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1D12CD81BEAF0B000B54A90 /* AbsenceViewController.m */; };
 		B1D12CDB1BEAF0B000B54A90 /* AbsenceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1D12CD91BEAF0B000B54A90 /* AbsenceViewController.xib */; };
+		B1E8B7F51C5E0C47005EBE75 /* NSDate+SchoolWeek.m in Sources */ = {isa = PBXBuildFile; fileRef = B1E8B7F41C5E0C47005EBE75 /* NSDate+SchoolWeek.m */; };
 		BD9E3D41A256140A759A1091 /* Pods_iHBNU.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DDA2B60693B6B0BE93675F /* Pods_iHBNU.framework */; };
 /* End PBXBuildFile section */
 
@@ -217,6 +218,8 @@
 		B1D12CD71BEAF0B000B54A90 /* AbsenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbsenceViewController.h; sourceTree = "<group>"; };
 		B1D12CD81BEAF0B000B54A90 /* AbsenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbsenceViewController.m; sourceTree = "<group>"; };
 		B1D12CD91BEAF0B000B54A90 /* AbsenceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AbsenceViewController.xib; sourceTree = "<group>"; };
+		B1E8B7F31C5E0C47005EBE75 /* NSDate+SchoolWeek.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+SchoolWeek.h"; sourceTree = "<group>"; };
+		B1E8B7F41C5E0C47005EBE75 /* NSDate+SchoolWeek.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+SchoolWeek.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,6 +283,7 @@
 		B1077C431BB8EB5300DC6870 /* iHBNU */ = {
 			isa = PBXGroup;
 			children = (
+				B1E8B7F21C5E0C0C005EBE75 /* WeekControl */,
 				B157BCAB1BC7EA3700B7C00A /* ExampleResources */,
 				B1C88C381BC2BCAC00FD7111 /* Model */,
 				B1C88C611BC2DEAD00FD7111 /* View */,
@@ -632,6 +636,16 @@
 			path = Controller/Absence;
 			sourceTree = "<group>";
 		};
+		B1E8B7F21C5E0C0C005EBE75 /* WeekControl */ = {
+			isa = PBXGroup;
+			children = (
+				B1E8B7F31C5E0C47005EBE75 /* NSDate+SchoolWeek.h */,
+				B1E8B7F41C5E0C47005EBE75 /* NSDate+SchoolWeek.m */,
+			);
+			name = WeekControl;
+			path = Controller/WeekControl;
+			sourceTree = "<group>";
+		};
 		D209278FC66AE74A622483E8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -885,6 +899,7 @@
 				B1C88C651BC2E7E400FD7111 /* AFViewShaker.m in Sources */,
 				B10850EE1BC8A66E00F1108B /* UserViewController.m in Sources */,
 				B10850ED1BC8A66E00F1108B /* OTCover.m in Sources */,
+				B1E8B7F51C5E0C47005EBE75 /* NSDate+SchoolWeek.m in Sources */,
 				B1C88C561BC2DEA900FD7111 /* ASTextField.m in Sources */,
 				B1C88C771BC3B80500FD7111 /* CustomTabbarController.m in Sources */,
 				B10850FF1BC8A6B800F1108B /* MyCell.m in Sources */,
