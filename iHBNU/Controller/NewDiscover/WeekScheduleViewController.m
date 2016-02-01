@@ -38,23 +38,23 @@
 
 @property BOOL mutipleSelect;
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic  ) IBOutlet UITableView               *tableView;
 
-@property (strong, nonatomic) JTCalendarMenuView *calendarMenuView;
-@property (weak, nonatomic) IBOutlet JTHorizontalCalendarView *calendarContentView;
-@property (strong, nonatomic) JTCalendarManager *calendarManager;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *calendarContentViewHeight;
+@property (strong, nonatomic) JTCalendarMenuView                 *calendarMenuView;
+@property (weak, nonatomic  ) IBOutlet JTHorizontalCalendarView  *calendarContentView;
+@property (strong, nonatomic) JTCalendarManager                  *calendarManager;
+@property (weak, nonatomic  ) IBOutlet NSLayoutConstraint        *calendarContentViewHeight;
 
-@property (strong, nonatomic) ZFModalTransitionAnimator *animator;
+@property (strong, nonatomic) ZFModalTransitionAnimator          *animator;
 
-@property (strong, nonatomic) NSMutableArray *dailyDataArray;
+@property (strong, nonatomic) NSMutableArray                     *dailyDataArray;
 
-@property (strong, nonatomic) UIBarButtonItem *goTodaySwitcherButtonItem;
-@property (strong, nonatomic) UIBarButtonItem *askForLeaveButtonItem;
-@property (strong, nonatomic) UIBarButtonItem *selectMutipleDayButtonItem;
-@property (strong, nonatomic) UIBarButtonItem *weeklyModeSwitcherButtonItem;
+@property (strong, nonatomic) UIBarButtonItem                    *goTodaySwitcherButtonItem;
+@property (strong, nonatomic) UIBarButtonItem                    *askForLeaveButtonItem;
+@property (strong, nonatomic) UIBarButtonItem                    *selectMutipleDayButtonItem;
+@property (strong, nonatomic) UIBarButtonItem                    *weeklyModeSwitcherButtonItem;
 
-@property (strong, nonatomic) NSMutableArray *calendarDataArray;
+@property (strong, nonatomic) NSMutableArray                     *calendarDataArray;
 
 @end
 
@@ -68,7 +68,7 @@
 
 - (void)didGetCoursePackages:(NSArray<CoursePackage *> *)coursePackages {
     // todo: refresh ui
-    
+
     self.calendarDataArray = [NSMutableArray arrayWithArray:@[
                                                              [NSMutableArray array],
                                                              [NSMutableArray array],
@@ -77,7 +77,7 @@
                                                              [NSMutableArray array],
                                                              [NSMutableArray array],
                                                              [NSMutableArray array],
-                                                             
+
                                                              [NSMutableArray array],
                                                              [NSMutableArray array],
                                                              [NSMutableArray array],
@@ -86,7 +86,7 @@
                                                              [NSMutableArray array],
                                                              [NSMutableArray array],
                                                              ]];
-    
+
     for (CoursePackage *course in coursePackages) {
         for (int i = 0; i < course.courseTimes.count; i++) {
             CourseTime *courseTime = course.courseTimes[i];
@@ -212,12 +212,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO];
-    [self presentAskForLeaveViewController];
+    
+    // todo: set date.
+    
+    NSDate *startDate, *endDate;
+    
+    [self presentAskForLeaveViewControllerFrom:startDate to:endDate];
 }
 
 #pragma mark - Modal View
 
-- (void)presentAskForLeaveViewController {
+- (void)presentAskForLeaveViewControllerFrom:(NSDate *)startDate to:(NSDate *)endDate {
     AbsenceViewController *absenceVC = [[AbsenceViewController alloc] initWithNibName:@"AbsenceViewController" bundle:[NSBundle mainBundle]];
     absenceVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
     
@@ -328,17 +333,41 @@
 
 - (void)navigationItemsSet {
     // weekly switcher
-    self.weeklyModeSwitcherButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"周视图" style:UIBarButtonItemStylePlain target:self action:@selector(didChangeModeTouch)];
+    self.weeklyModeSwitcherButtonItem = [[UIBarButtonItem alloc]
+                                         initWithTitle:@"周视图"
+                                         style:UIBarButtonItemStylePlain
+                                         target:self
+                                         action:@selector(didChangeModeTouch)];
     
     // today
-    self.goTodaySwitcherButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"今天" style:UIBarButtonItemStylePlain target:self action:@selector(didGoTodayTouch)];
+    self.goTodaySwitcherButtonItem = [[UIBarButtonItem alloc]
+                                      initWithTitle:@"今天"
+                                      style:UIBarButtonItemStylePlain
+                                      target:self
+                                      action:@selector(didGoTodayTouch)];
     
-    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:self.goTodaySwitcherButtonItem, self.weeklyModeSwitcherButtonItem, nil]];
+    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:
+                                                 self.goTodaySwitcherButtonItem,
+                                                 self.weeklyModeSwitcherButtonItem,
+                                                 nil]];
     
-    self.selectMutipleDayButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"多选" style:UIBarButtonItemStylePlain target:self action:@selector(didSwitchMutipleSelect)];
-    self.askForLeaveButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"请假" style:UIBarButtonItemStylePlain target:self action:@selector(askForLeave)];
+    self.selectMutipleDayButtonItem = [[UIBarButtonItem alloc]
+                                       initWithTitle:@"多选"
+                                       style:UIBarButtonItemStylePlain
+                                       target:self
+                                       action:@selector(didSwitchMutipleSelect)];
     
-    [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:self.selectMutipleDayButtonItem, self.askForLeaveButtonItem, nil]];
+    self.askForLeaveButtonItem = [[UIBarButtonItem alloc]
+                                  initWithTitle:@"请假"
+                                  style:UIBarButtonItemStylePlain
+                                  target:self
+                                  action:@selector(askForLeave)];
+    
+    [self.navigationItem setLeftBarButtonItems:[NSArray
+                                                arrayWithObjects:
+                                                self.selectMutipleDayButtonItem,
+                                                self.askForLeaveButtonItem,
+                                                nil]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -349,7 +378,10 @@
 #pragma mark - Ask for leave
 
 - (void)askForLeave {
-    [self presentAskForLeaveViewController];
+    
+    NSDate *startDate, *endDate;
+    
+    [self presentAskForLeaveViewControllerFrom:startDate to:endDate];
 }
 
 #pragma mark - Calendar Toolbar setting
@@ -359,9 +391,16 @@
     [_datesSelected removeAllObjects];
     _dateSelected = [[NSDate alloc] init];
     [_calendarManager reload];
+    
     if (self.mutipleSelect) {
+        
         [self.selectMutipleDayButtonItem setTitle:@"单选"];
-        [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:self.selectMutipleDayButtonItem, nil] animated:YES];
+        [self.navigationItem setLeftBarButtonItems:[NSArray
+                                                    arrayWithObjects:
+                                                    self.selectMutipleDayButtonItem,
+                                                    nil]
+                                          animated:YES];
+        
     } else {
         [self.selectMutipleDayButtonItem setTitle:@"多选"];
     }
@@ -369,8 +408,7 @@
 }
 
 // set today
-- (void)didGoTodayTouch
-{
+- (void)didGoTodayTouch {
     [_calendarManager setDate:_todayDate];
     _dateSelected = _todayDate;
     _datesSelected = [[NSMutableArray alloc] init];
@@ -385,8 +423,11 @@
     [_calendarManager reload];
     
     CGFloat newHeight = 300;
+    
     [self.weeklyModeSwitcherButtonItem setTitle:@"周视图"];
+    
     if(_calendarManager.settings.weekModeEnabled){
+        
         newHeight = 85.;
         [self.weeklyModeSwitcherButtonItem setTitle:@"月视图"];
     }
@@ -478,10 +519,22 @@
         
         if (_datesSelected.count!=0) {
             NSLog(@"array.count:%lu",(unsigned long)_datesSelected.count);
-            [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:self.selectMutipleDayButtonItem, self.askForLeaveButtonItem, nil] animated:YES];
+            
+            [self.navigationItem setLeftBarButtonItems:[NSArray
+                                                        arrayWithObjects:
+                                                        self.selectMutipleDayButtonItem,
+                                                        self.askForLeaveButtonItem,
+                                                        nil]
+                                              animated:YES];
+            
         } else {
             NSLog(@"array.count:%lu",(unsigned long)_datesSelected.count);
-            [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:self.selectMutipleDayButtonItem, nil] animated:YES];
+            
+            [self.navigationItem setLeftBarButtonItems:[NSArray
+                                                        arrayWithObjects:
+                                                        self.selectMutipleDayButtonItem,
+                                                        nil]
+                                              animated:YES];
         }
         
     } else {
@@ -511,11 +564,16 @@
     // Load the previous or next page if touch a day from another month
     
     if(![_calendarManager.dateHelper date:_calendarContentView.date isTheSameMonthThan:dayView.date]){
+        
         if([_calendarContentView.date compare:dayView.date] == NSOrderedAscending){
+            
             [_calendarContentView loadNextPageWithAnimation];
         }
+        
         else{
+            
             [_calendarContentView loadPreviousPageWithAnimation];
+            
         }
     }
 }
@@ -527,6 +585,7 @@
 - (BOOL)isInDatesSelected:(NSDate *)date
 {
     for(NSDate *dateSelected in _datesSelected){
+        
         if([_calendarManager.dateHelper date:dateSelected isTheSameDayThan:date]){
             return YES;
         }
@@ -601,7 +660,14 @@
     if(_eventsByDate[key] && [_eventsByDate[key] count] > 0){
         
         for (NSDictionary *dic in _eventsByDate[key]) {
-            if ([date weeksFrom:[NSDate semesterBeginning]] >= ((NSNumber *)dic[@"startweek"]).integerValue-1 && [date weeksFrom:[NSDate semesterBeginning]] <= ((NSNumber *)dic[@"endweek"]).integerValue-1) {
+            if ([date weeksFrom:[NSDate semesterBeginning]]
+                >=
+                ((NSNumber *)dic[@"startweek"]).integerValue-1
+                &&
+                [date weeksFrom:[NSDate semesterBeginning]]
+                <=
+                ((NSNumber *)dic[@"endweek"]).integerValue-1) {
+                
                 return YES;
             }
         }
@@ -624,8 +690,11 @@
     _eventsByDate = [NSMutableDictionary new];
     
     for(int i = 0; i < [NSDate semesterDaysCount]; ++i){
+        
         // Generate 30 random dates between now and 60 days later
-        NSDate *date = [NSDate dateWithTimeInterval:(i*3600*24) % (3600 * 24 * [NSDate semesterDaysCount]) sinceDate:[NSDate semesterBeginning]];
+        NSDate *date = [NSDate
+                        dateWithTimeInterval:(i * 3600 * 24) % (3600 * 24 * [NSDate semesterDaysCount])
+                        sinceDate:[NSDate semesterBeginning]];
 
         // Use the date as key for eventsByDate
         NSString *key = [[self dateFormatter] stringFromDate:date];
