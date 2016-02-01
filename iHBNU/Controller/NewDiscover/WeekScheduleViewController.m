@@ -142,11 +142,8 @@
     } else {
         result = 0;
     }
-//    return _dailyDataArray.count;
-    NSLog(@"%li",result);
-    return result;
-    
 
+    return result;
 }
 
 
@@ -185,10 +182,10 @@
                     for (NSNumber *number in dic[@"sequence"]) {
                         [str appendString:number.stringValue];
                     }
-                    NSLog(@"%@",dic);
+//                    NSLog(@"%@",dic);
                     [cell setCourseName:dic[@"courseName"] locateName:dic[@"classroom"] timeText:[NSString stringWithFormat:@"第%@节课",str]];
                     
-                    NSLog(@"%@",_dateSelected);
+//                    NSLog(@"%@",_dateSelected);
                     return cell;
                 } else {
                     continue;
