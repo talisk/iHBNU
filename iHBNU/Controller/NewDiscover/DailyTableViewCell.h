@@ -10,6 +10,8 @@
 
 @interface DailyTableViewCell : UITableViewCell
 
+@property (nonatomic, strong) NSDictionary *courseInfoDic;
+
 - (void)setCourseName:(NSString *)course locateName:(NSString *)locate timeText:(NSString *)timeText;
 
 @end

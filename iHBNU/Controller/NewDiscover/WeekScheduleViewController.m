@@ -184,6 +184,7 @@
                     }
 //                    NSLog(@"%@",dic);
                     [cell setCourseName:dic[@"courseName"] locateName:dic[@"classroom"] timeText:[NSString stringWithFormat:@"第%@节课",str]];
+                    [cell setCourseInfoDic:dic];
                     
 //                    NSLog(@"%@",_dateSelected);
                     return cell;
