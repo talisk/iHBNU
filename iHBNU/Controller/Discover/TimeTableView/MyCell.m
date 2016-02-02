@@ -45,7 +45,7 @@
 -(void)setCurrentTime:(NSMutableArray *)currentTime
 {
      _currentTime=currentTime;
-    int count=currentTime.count;
+    NSInteger count=currentTime.count;
     if(count>0){
         for(int i=0;i<count;i++){
         

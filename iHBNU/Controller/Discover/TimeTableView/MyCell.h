@@ -20,5 +20,5 @@
 @interface MyCell : UITableViewCell
 @property (nonatomic,assign) id<MyCellDelegate> delegate;
 @property (nonatomic,strong) NSMutableArray *currentTime;
-@property (nonatomic,assign) int index;
+@property (nonatomic,assign) NSInteger index;
 @end

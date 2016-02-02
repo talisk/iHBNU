@@ -65,7 +65,7 @@
         NSArray *keyArray = @[@"username",@"password",@"choose"];
         // choose: 1teacher, 0student
         
-        NSArray *valueArray = @[self.userIDTextField.text, self.passwordTextField.text, [NSString stringWithFormat:@"%li",self.segmentControl.selectedSegmentIndex]];
+        NSArray *valueArray = @[self.userIDTextField.text, self.passwordTextField.text, [NSString stringWithFormat:@"%li",(long)self.segmentControl.selectedSegmentIndex]];
         
         NSString *urlString = @"http://115.29.40.230:8080/olschool/Denglu";
         NSDictionary *dic = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];

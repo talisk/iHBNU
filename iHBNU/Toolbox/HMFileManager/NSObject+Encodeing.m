@@ -16,6 +16,7 @@
     [self encoder:aCoder];
 }
 
+#pragma clang diagnostic ignored "-Wobjc-designated-initializers"
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     [self dencoder:aDecoder];
