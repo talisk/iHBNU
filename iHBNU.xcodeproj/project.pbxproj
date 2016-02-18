@@ -49,6 +49,7 @@
 		B1994CE41C524AA700B7802B /* HMFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B1994CE11C524AA700B7802B /* HMFileManager.m */; };
 		B1994CE51C524AA700B7802B /* NSObject+Encodeing.m in Sources */ = {isa = PBXBuildFile; fileRef = B1994CE31C524AA700B7802B /* NSObject+Encodeing.m */; };
 		B1994CE91C524ABA00B7802B /* DeviceToolbox.m in Sources */ = {isa = PBXBuildFile; fileRef = B1994CE81C524ABA00B7802B /* DeviceToolbox.m */; };
+		B1A6E41A1C75BD6200496B10 /* NSObject+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = B1A6E4191C75BD6200496B10 /* NSObject+Extension.m */; };
 		B1C88C371BC2BCA300FD7111 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = B1C88C361BC2BCA300FD7111 /* User.m */; };
 		B1C88C561BC2DEA900FD7111 /* ASTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B1C88C481BC2DEA900FD7111 /* ASTextField.m */; };
 		B1C88C571BC2DEA900FD7111 /* round_textfield.png in Resources */ = {isa = PBXBuildFile; fileRef = B1C88C4B1BC2DEA900FD7111 /* round_textfield.png */; };
@@ -176,6 +177,8 @@
 		B1994CE71C524ABA00B7802B /* DeviceToolbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceToolbox.h; sourceTree = "<group>"; };
 		B1994CE81C524ABA00B7802B /* DeviceToolbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceToolbox.m; sourceTree = "<group>"; };
 		B1994CEA1C527D1F00B7802B /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		B1A6E4181C75BD6200496B10 /* NSObject+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Extension.h"; sourceTree = "<group>"; };
+		B1A6E4191C75BD6200496B10 /* NSObject+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extension.m"; sourceTree = "<group>"; };
 		B1C88C351BC2BCA300FD7111 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = Model/User.h; sourceTree = "<group>"; };
 		B1C88C361BC2BCA300FD7111 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = Model/User.m; sourceTree = "<group>"; };
 		B1C88C471BC2DEA900FD7111 /* ASTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASTextField.h; sourceTree = "<group>"; };
@@ -451,6 +454,16 @@
 			path = Toolbox/Device;
 			sourceTree = "<group>";
 		};
+		B1A6E4171C75BD3A00496B10 /* NSObject+Extension */ = {
+			isa = PBXGroup;
+			children = (
+				B1A6E4181C75BD6200496B10 /* NSObject+Extension.h */,
+				B1A6E4191C75BD6200496B10 /* NSObject+Extension.m */,
+			);
+			name = "NSObject+Extension";
+			path = "Toolbox/NSObject+Extension";
+			sourceTree = "<group>";
+		};
 		B1C88C381BC2BCAC00FD7111 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -550,6 +563,7 @@
 		B1C88C691BC3A66B00FD7111 /* Toolbox */ = {
 			isa = PBXGroup;
 			children = (
+				B1A6E4171C75BD3A00496B10 /* NSObject+Extension */,
 				B1994CE61C524ABA00B7802B /* Device */,
 				B1994CDF1C524AA700B7802B /* HMFileManager */,
 			);
@@ -894,6 +908,7 @@
 				B11C54291C53C3330034E575 /* CourseManager.m in Sources */,
 				B10851021BC8A6B800F1108B /* TimeView.m in Sources */,
 				B1C88C821BC3B8C500FD7111 /* DiscoverViewController.m in Sources */,
+				B1A6E41A1C75BD6200496B10 /* NSObject+Extension.m in Sources */,
 				B157BC961BC7D20200B7C00A /* MainTabBarViewController.m in Sources */,
 				B14AF8751BEA3FA600EAD217 /* DailyTableViewCell.m in Sources */,
 				B1C88C651BC2E7E400FD7111 /* AFViewShaker.m in Sources */,
