@@ -19,6 +19,7 @@
 #import "HMFileManager.h"
 
 #import "NSDate+SchoolWeek.h"
+#import "NSObject+Extension.h"
 
 #import "CourseManager.h"
 #import "CourseTime.h"
@@ -222,6 +223,7 @@
 
 - (void)presentAskForLeaveViewControllerFrom:(NSDate *)startDate to:(NSDate *)endDate {
     AbsenceViewController *absenceVC = [[AbsenceViewController alloc] initWithNibName:@"AbsenceViewController" bundle:[NSBundle mainBundle]];
+    
     absenceVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
     
     self.animator = [[ZFModalTransitionAnimator alloc] initWithModalViewController:absenceVC];
@@ -235,7 +237,12 @@
     absenceVC.transitioningDelegate = self.animator;
     
     [absenceVC setTitle:@"请假"];
-    [self presentViewController:absenceVC animated:YES completion:nil];
+    [self presentViewController:absenceVC animated:YES completion:^{
+        
+        [absenceVC.startTimeTextField setText:[startDate formattedDateWithFormat:@"yyyy-MM-dd HH:MM:ss" timeZone:[NSTimeZone timeZoneWithName:@"GMT+0800"]]];
+        
+        [absenceVC.endTimeTextField setText:[endDate formattedDateWithFormat:@"yyyy-MM-dd HH:MM:ss" timeZone:[NSTimeZone timeZoneWithName:@"GMT+0800"]]];
+    }];
 }
 
 
@@ -361,7 +368,9 @@
                                   initWithTitle:@"请假"
                                   style:UIBarButtonItemStylePlain
                                   target:self
-                                  action:@selector(askForLeave)];
+                                  action:@selector(askForLeaveSender:)];
+    [self.askForLeaveButtonItem setUserInfo:@{@"from": [NSDate date],
+                                              @"to": [NSDate date]}];
     
     [self.navigationItem setLeftBarButtonItems:[NSArray
                                                 arrayWithObjects:
@@ -377,11 +386,13 @@
 
 #pragma mark - Ask for leave
 
-- (void)askForLeave {
+- (void)askForLeaveSender:(id)sender {
     
-    NSDate *startDate, *endDate;
+    NSDictionary *vacationDic = ((UIBarButtonItem *)sender).userInfo;
     
-    [self presentAskForLeaveViewControllerFrom:startDate to:endDate];
+
+    
+    [self presentAskForLeaveViewControllerFrom:vacationDic[@"from"] to:vacationDic[@"to"]];
 }
 
 #pragma mark - Calendar Toolbar setting
