@@ -7,19 +7,19 @@
 //
 
 #import "AbsenceViewController.h"
+#import <DateTools/DateTools.h>
 
 @interface AbsenceViewController () <UITextFieldDelegate>
 @property (strong, nonatomic) IBOutlet UIView *fullScreenView;
 @property (weak, nonatomic) IBOutlet UIView *absenceView;
 @property (weak, nonatomic) IBOutlet UINavigationBar *naviBar;
 
-@property (weak, nonatomic) IBOutlet UITextField *startTimeTextField;
-@property (weak, nonatomic) IBOutlet UITextField *endTimeTextField;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *absenceTypeSegmentedControl;
 @property (weak, nonatomic) IBOutlet UITextField *parentsPhoneTextField;
 @property (weak, nonatomic) IBOutlet UITextView *resonTextView;
 
-@property (strong, nonatomic) UIDatePicker *datePicker;
+@property (strong, nonatomic) UIDatePicker *datePicker0;
+@property (strong, nonatomic) UIDatePicker *datePicker1;
 
 @end
 
@@ -32,10 +32,17 @@
     self.startTimeTextField.delegate = self;
     self.endTimeTextField.delegate = self;
     
-    self.datePicker = [[UIDatePicker alloc] init];
+    [self.startTimeTextField setTextAlignment:NSTextAlignmentCenter];
+    [self.endTimeTextField setTextAlignment:NSTextAlignmentCenter];
     
-    [self.startTimeTextField setInputView:self.datePicker];
-    [self.endTimeTextField setInputView:self.datePicker];
+    self.datePicker0 = [[UIDatePicker alloc] init];
+    [self.datePicker0 addTarget:self action:@selector(dateChange0:) forControlEvents:UIControlEventValueChanged];
+    
+    self.datePicker1 = [[UIDatePicker alloc] init];
+    [self.datePicker1 addTarget:self action:@selector(dateChange1:) forControlEvents:UIControlEventValueChanged];
+    
+    [self.startTimeTextField setInputView:self.datePicker0];
+    [self.endTimeTextField setInputView:self.datePicker1];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(back)];
     [self.fullScreenView addGestureRecognizer:tap];
@@ -62,15 +69,21 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - DatePicker date changed
+
+- (void)dateChange0:(id)sender {
+    [self.startTimeTextField setText:[((UIDatePicker *)sender).date formattedDateWithFormat:@"yyyy-MM-dd HH:mm:ss" timeZone:[NSTimeZone timeZoneWithName:@"GMT+0800"]]];
+}
+
+- (void)dateChange1:(id)sender {
+    [self.endTimeTextField setText:[((UIDatePicker *)sender).date formattedDateWithFormat:@"yyyy-MM-dd HH:mm:ss" timeZone:[NSTimeZone timeZoneWithName:@"GMT+0800"]]];
+}
+
 #pragma mark - UITextField Delegate
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    NSDateFormatter *dateFormtter=[[NSDateFormatter alloc] init];
-    [dateFormtter setDateFormat:@"yyyy-MM-dd HH:mm"];
-    
-    [textField setText:[dateFormtter stringFromDate:self.datePicker.date]];
+    [textField setText:[((UIDatePicker *)textField.inputView).date formattedDateWithFormat:@"yyyy-MM-dd HH:mm:ss" timeZone:[NSTimeZone timeZoneWithName:@"GMT+0800"]]];
 }
-
 
 
 

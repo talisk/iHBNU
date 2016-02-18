@@ -47,12 +47,12 @@
                     <rect key="frame" x="0.0" y="238" width="600" height="362"/>
                     <subviews>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Owk-MO-Jp2">
-                            <rect key="frame" x="8" y="8" width="268" height="30"/>
+                            <rect key="frame" x="8" y="8" width="281" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qDo-Ed-k58">
-                            <rect key="frame" x="324" y="8" width="268" height="30"/>
+                            <rect key="frame" x="311" y="8" width="281" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
@@ -81,7 +81,7 @@
                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                         </textField>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="监护人电话：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7jw-Ys-2AH">
-                            <rect key="frame" x="8" y="95" width="102" height="21"/>
+                            <rect key="frame" x="8" y="95" width="102" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -109,16 +109,17 @@
                         <constraint firstItem="HuN-x1-8cO" firstAttribute="top" secondItem="qDo-Ed-k58" secondAttribute="bottom" constant="13" id="aju-ZO-vbI"/>
                         <constraint firstAttribute="trailing" secondItem="qDo-Ed-k58" secondAttribute="trailing" constant="8" id="bSG-N3-5HX"/>
                         <constraint firstItem="0kq-ck-9O9" firstAttribute="centerX" secondItem="pKH-sa-I7E" secondAttribute="centerX" id="bue-2r-I8A"/>
-                        <constraint firstItem="qDo-Ed-k58" firstAttribute="leading" secondItem="0kq-ck-9O9" secondAttribute="trailing" constant="13" id="c6F-yA-Re0"/>
+                        <constraint firstItem="qDo-Ed-k58" firstAttribute="leading" secondItem="0kq-ck-9O9" secondAttribute="trailing" id="c6F-yA-Re0"/>
                         <constraint firstItem="qDo-Ed-k58" firstAttribute="top" secondItem="pKH-sa-I7E" secondAttribute="top" constant="8" id="d5k-85-cfX"/>
                         <constraint firstItem="HuN-x1-8cO" firstAttribute="leading" secondItem="pKH-sa-I7E" secondAttribute="leading" constant="8" id="eSn-Ox-iDF"/>
-                        <constraint firstItem="0kq-ck-9O9" firstAttribute="leading" secondItem="Owk-MO-Jp2" secondAttribute="trailing" constant="13" id="szF-fP-fSt"/>
+                        <constraint firstItem="0kq-ck-9O9" firstAttribute="leading" secondItem="Owk-MO-Jp2" secondAttribute="trailing" id="szF-fP-fSt"/>
                         <constraint firstItem="QQT-O1-jkz" firstAttribute="top" secondItem="HuN-x1-8cO" secondAttribute="bottom" constant="12" id="tSK-2v-uiG"/>
                         <constraint firstItem="QQT-O1-jkz" firstAttribute="leading" secondItem="7jw-Ys-2AH" secondAttribute="trailing" constant="8" id="xso-au-cIX"/>
                         <constraint firstItem="7jw-Ys-2AH" firstAttribute="top" secondItem="HuN-x1-8cO" secondAttribute="bottom" constant="16" id="yiS-dS-OZD"/>
                     </constraints>
                 </view>
             </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="pKH-sa-I7E" firstAttribute="top" secondItem="Cdc-7A-mhn" secondAttribute="bottom" id="0t8-D7-oNq"/>
                 <constraint firstAttribute="trailing" secondItem="Cdc-7A-mhn" secondAttribute="trailing" id="Brx-lw-T24"/>

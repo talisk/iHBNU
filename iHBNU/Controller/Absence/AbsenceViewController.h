@@ -10,4 +10,7 @@
 
 @interface AbsenceViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UITextField *startTimeTextField;
+@property (weak, nonatomic) IBOutlet UITextField *endTimeTextField;
+
 @end
