@@ -50,7 +50,7 @@
                 if ([returnValue[@"message"] isEqualToString:@"empty"]) {
                     NSLog(@"无数据");
                     [SVProgressHUD showErrorWithStatus:@"未查询到数据" maskType:SVProgressHUDMaskTypeGradient];
-                } else {
+                } else { // 返回值为nothing
                     // todo: 令牌过期
                     NSLog(@"无数据");
                     [SVProgressHUD showErrorWithStatus:@"未查询到数据" maskType:SVProgressHUDMaskTypeGradient];
