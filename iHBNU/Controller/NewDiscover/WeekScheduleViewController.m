@@ -322,6 +322,8 @@
     
     
     [self navigationItemsSet];
+    
+    [_calendarManager reload];
 
     
 //    [self.navigationBar setBackgroundImage:nil forBarPosition:UIBarPositionTop barMetrics:UIBarMetricsDefault];
