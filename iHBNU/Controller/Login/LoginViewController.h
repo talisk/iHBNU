@@ -8,6 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, iHBNULoginErrorType) {
+    iHBNUPasswordWrong,
+    iHBNULoginNetworkError,
+    iHBNUOtherError
+};
+
+@protocol LoginStateDelegate <NSObject>
+
+@optional
+
+- (void)didLoginSuccessfully;
+- (void)didLoginFailedWithError:(NSError *)error;
+
+@end
+
 @interface LoginViewController : UIViewController
+
+@property (nonatomic, weak) id<LoginStateDelegate> delegate;
 
 @end

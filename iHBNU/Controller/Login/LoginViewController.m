@@ -18,6 +18,8 @@
 #import "User.h"
 #import "HMFileManager.h"
 
+#define LoginErrorDomain @"LoginErrorDomain"
+
 @interface LoginViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *loginBTN;
 @property (weak, nonatomic) IBOutlet ASTextField *userIDTextField;
@@ -78,6 +80,7 @@
             
             if (mtlError) {
                 NSLog(@"%@",mtlError.description);
+                [self.delegate didLoginFailedWithError:mtlError];
                 [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"发生错误:%@",userModel.message] maskType:SVProgressHUDMaskTypeGradient];
             } else {
                 if (!userModel.message.length) {
@@ -95,13 +98,23 @@
                     
                     [SVProgressHUD showSuccessWithStatus:@"登录成功" maskType:SVProgressHUDMaskTypeGradient];
                     
-                    [self dismissViewControllerAnimated:YES completion:nil];
+                    [self dismissViewControllerAnimated:YES completion:^{
+                        [self.delegate didLoginSuccessfully];
+                    }];
                     
                 } else if ([userModel.message isEqualToString:@"nothing"]) {
                     NSLog(@"帐号或密码错误");
+                    
+                    NSError *error = [NSError errorWithDomain:LoginErrorDomain code:iHBNUPasswordWrong userInfo:nil];
+                    [self.delegate didLoginFailedWithError:error];
+                    
                     [SVProgressHUD showErrorWithStatus:@"帐号或密码错误" maskType:SVProgressHUDMaskTypeGradient];
                 } else {
                     NSLog(@"%@", userModel.message);
+                    
+                    NSError *error = [NSError errorWithDomain:LoginErrorDomain code:iHBNUOtherError userInfo:nil];
+                    [self.delegate didLoginFailedWithError:error];
+                    
                     [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"发生错误:%@",userModel.message] maskType:SVProgressHUDMaskTypeGradient];
                 }
                 
@@ -110,9 +123,17 @@
             
         } WithErrorCodeBlock:^(id errorCode) {
             NSLog(@"%@",errorCode);
+            
+            NSError *error = [NSError errorWithDomain:LoginErrorDomain code:iHBNUOtherError userInfo:nil];
+            [self.delegate didLoginFailedWithError:error];
+            
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"发生错误:%@",errorCode] maskType:SVProgressHUDMaskTypeGradient];
         } WithFailureBlock:^{
             NSLog(@"网络异常");
+            
+            NSError *error = [NSError errorWithDomain:LoginErrorDomain code:iHBNULoginNetworkError userInfo:nil];
+            [self.delegate didLoginFailedWithError:error];
+            
             [SVProgressHUD showErrorWithStatus:@"网络异常" maskType:SVProgressHUDMaskTypeGradient];
         }];
     } else {

@@ -25,7 +25,7 @@
 #import "CourseTime.h"
 #import "CoursePackage.h"
 
-@interface WeekScheduleViewController ()<JTCalendarDelegate,UITableViewDataSource,UITableViewDelegate, CourseManagerDelegate>{
+@interface WeekScheduleViewController ()<JTCalendarDelegate,UITableViewDataSource,UITableViewDelegate, CourseManagerDelegate, LoginStateDelegate>{
     NSMutableDictionary *_eventsByDate;
     
     NSDate *_todayDate;
@@ -57,9 +57,17 @@
 
 @property (strong, nonatomic) NSMutableArray                     *calendarDataArray;
 
+@property (strong, nonatomic) LoginViewController                *lvc;
+
 @end
 
 @implementation WeekScheduleViewController
+
+#pragma mark - LoginStateDelegate
+
+- (void)didLoginSuccessfully {
+    [self presentViewController:self.lvc animated:YES completion:nil];
+}
 
 #pragma mark - CourseManagerDelegate
 
@@ -283,6 +291,8 @@
     [CourseManager sharedInstance].delegate = self;
     [[CourseManager sharedInstance] fetchCourse];
     
+    self.lvc = [[LoginViewController alloc] init];
+    [self.lvc setDelegate:self];
     
     // 登录判断
     NSString *loginKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"loginkey"];
@@ -292,8 +302,8 @@
     NSLog(@"%@",userModel);
     
     if (!loginKey.length || !userModel) {
-        LoginViewController *lvc = [[LoginViewController alloc] init];
-        [self presentViewController:lvc animated:YES completion:nil];
+        
+        [self presentViewController:self.lvc animated:YES completion:nil];
     }
     
     
