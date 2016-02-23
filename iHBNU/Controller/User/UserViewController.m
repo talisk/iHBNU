@@ -152,9 +152,8 @@
     [[self.otcoverView.tableView cellForRowAtIndexPath:indexPath] setSelected:NO];
     if (indexPath.row == self.userDataSourceKeyArray.count) {
         [self logout];
-        
-        LoginViewController *loginViewController = [[LoginViewController alloc] init];
-        [self presentViewController:loginViewController animated:YES completion:nil];
+
+        [self presentViewController:[LoginViewController sharedInstance] animated:YES completion:nil];
     }
 }
 

@@ -27,4 +27,6 @@ typedef NS_ENUM(NSInteger, iHBNULoginErrorType) {
 
 @property (nonatomic, weak) id<LoginStateDelegate> delegate;
 
++ (instancetype)sharedInstance;
+
 @end

@@ -57,8 +57,6 @@
 
 @property (strong, nonatomic) NSMutableArray                     *calendarDataArray;
 
-@property (strong, nonatomic) LoginViewController                *lvc;
-
 @end
 
 @implementation WeekScheduleViewController
@@ -66,7 +64,7 @@
 #pragma mark - LoginStateDelegate
 
 - (void)didLoginSuccessfully {
-    [self presentViewController:self.lvc animated:YES completion:nil];
+    [[CourseManager sharedInstance] fetchCourse];
 }
 
 #pragma mark - CourseManagerDelegate
@@ -291,8 +289,7 @@
     [CourseManager sharedInstance].delegate = self;
     [[CourseManager sharedInstance] fetchCourse];
     
-    self.lvc = [[LoginViewController alloc] init];
-    [self.lvc setDelegate:self];
+    [[LoginViewController sharedInstance] setDelegate:self];
     
     // 登录判断
     NSString *loginKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"loginkey"];
@@ -303,7 +300,7 @@
     
     if (!loginKey.length || !userModel) {
         
-        [self presentViewController:self.lvc animated:YES completion:nil];
+        [self presentViewController:[LoginViewController sharedInstance] animated:YES completion:nil];
     }
     
     
