@@ -18,6 +18,8 @@
 #import "Course.h"
 #import "CoursePackage.h"
 
+#import "LoginViewController.h"
+
 @interface CourseManager ()
 
 @property (nonatomic, strong) User *userModel;
@@ -53,7 +55,12 @@
                 } else { // 返回值为nothing
                     // todo: 令牌过期
                     NSLog(@"无数据");
-                    [SVProgressHUD showErrorWithStatus:@"未查询到数据" maskType:SVProgressHUDMaskTypeGradient];
+                    
+                    LoginViewController *lvc = [[LoginViewController alloc] init];
+                    
+                    [[[UIApplication sharedApplication].windows firstObject].rootViewController presentViewController:lvc animated:YES completion:nil];
+                    
+                    [SVProgressHUD showErrorWithStatus:@"请重新登录" maskType:SVProgressHUDMaskTypeGradient];
                 }
             } else if ([(NSArray *)returnValue count]) {
             
