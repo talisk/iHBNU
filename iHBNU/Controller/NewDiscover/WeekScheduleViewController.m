@@ -217,12 +217,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO];
-    
-    // todo: set date.
-    
-    NSDate *startDate, *endDate;
-    
-    [self presentAskForLeaveViewControllerFrom:startDate to:endDate];
+
+    // todo: ask for leave
+//    NSDate *startDate, *endDate;
+//    [self presentAskForLeaveViewControllerFrom:startDate to:endDate];
 }
 
 #pragma mark - Modal View
