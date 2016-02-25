@@ -64,7 +64,19 @@
 #pragma mark - LoginStateDelegate
 
 - (void)didLoginSuccessfully {
-    [[CourseManager sharedInstance] fetchCourse];
+    NSArray *coursePackageArray = (NSArray *)[HMFileManager getObjectByFileName:@"coursePackage"];
+    if (coursePackageArray) {
+        [self didGetCoursePackages:coursePackageArray];
+    } else {
+        [CourseManager sharedInstance].delegate = self;
+        [[CourseManager sharedInstance] fetchCourse];
+    }
+    
+//    [[CourseManager sharedInstance] fetchCourse];
+}
+
+- (void)didLoginFailedWithError:(NSError *)error {
+    
 }
 
 #pragma mark - CourseManagerDelegate
@@ -284,9 +296,6 @@
     // Create a min and max date for limit the calendar, optional
     [self createMinAndMaxDate];
     
-    [CourseManager sharedInstance].delegate = self;
-    [[CourseManager sharedInstance] fetchCourse];
-    
     [[LoginViewController sharedInstance] setDelegate:self];
     
     // 登录判断
@@ -331,6 +340,14 @@
     [_calendarManager setMenuView:_calendarMenuView];
     [_calendarManager setContentView:_calendarContentView];
     [_calendarManager setDate:_todayDate];
+    
+    NSArray *coursePackageArray = (NSArray *)[HMFileManager getObjectByFileName:@"coursePackage"];
+    if (coursePackageArray) {
+        [self didGetCoursePackages:coursePackageArray];
+    } else {
+        [CourseManager sharedInstance].delegate = self;
+        [[CourseManager sharedInstance] fetchCourse];
+    }
     
     
     [self navigationItemsSet];
